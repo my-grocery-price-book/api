@@ -16,3 +16,8 @@
   cd /vagrant
   bundle install --path vendor/bundle
 ```
+
+# Running Tests
+```
+ bin/bacon spec/*
+```
