@@ -1,0 +1,25 @@
+---
+- name: install software-properties-common
+  apt: name=software-properties-common state=present
+
+- name: brightbox ruby repos
+  apt_repository: repo='ppa:brightbox/ruby-ng' state=present
+
+- name: update apt cache
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: install ruby2.1-dev
+  apt: name=ruby2.1-dev state=present
+
+- name: install ruby 2.1
+  apt: name=ruby2.1 state=present
+
+- name: install ruby-switch
+  apt: name=ruby-switch state=present
+
+- name: Swith to ruby 2.1
+  command: ruby-switch --set ruby2.1
+
+- name: Install Bundler
+  command: gem install bundler -v 1.7.12 --no-rdoc --no-ri creates=/var/lib/gems/1.9.1/gems/bundler-1.7.12
+
