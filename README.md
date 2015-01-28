@@ -15,6 +15,7 @@
   vagrant ssh
   cd /vagrant
   bundle install --path vendor/bundle
+  bin/shotgun -o 0.0.0.0 # open browser and visit http://localhost:9393 or through ngnix http://localhost:8181
 ```
 
 # Running Tests

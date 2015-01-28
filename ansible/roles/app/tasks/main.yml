@@ -1,6 +1,9 @@
 ---
-- name: install software-properties-common
-  apt: name=software-properties-common state=present
+- name: Download and install the Ngnix Public Signing Key
+  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+
+- name: add ngnix repository
+  apt_repository: repo='deb http://nginx.org/packages/ubuntu/ trusty nginx' state=present
 
 - name: brightbox ruby repos
   apt_repository: repo='ppa:brightbox/ruby-ng' state=present
@@ -8,18 +11,45 @@
 - name: update apt cache
   apt: update_cache=yes cache_valid_time=86400
 
-- name: install ruby2.1-dev
-  apt: name=ruby2.1-dev state=present
+- name: install software-properties-common
+  apt: name=software-properties-common state=present
 
-- name: install ruby 2.1
-  apt: name=ruby2.1 state=present
+- name: installing ruby 2.2
+  apt: name={{item}} state=present
+  with_items:
+    - ruby2.2
+    - ruby2.2-dev
+    - ruby-switch
 
-- name: install ruby-switch
-  apt: name=ruby-switch state=present
-
-- name: Swith to ruby 2.1
-  command: ruby-switch --set ruby2.1
+- name: Swith to ruby 2.2
+  command: ruby-switch --set ruby2.2
 
 - name: Install Bundler
-  command: gem install bundler -v 1.7.12 --no-rdoc --no-ri creates=/var/lib/gems/1.9.1/gems/bundler-1.7.12
+  gem: name=bundler state=present
+
+- name: install ngnix
+  apt: name=nginx state=present
+
+- name: remove default ngnix conf
+  file: name=/etc/nginx/conf.d/default.conf state=absent
+
+- name: upload ngnix price_book_api.conf
+  template: src=etc/nginx/conf.d/price_book_api.conf.j2 dest=/etc/nginx/conf.d/price_book_api.conf mode=644 owner=root
+
+- name: restarting ngnix
+  service: name=nginx state=restarted enabled=yes
+
+- name: create price_book_api user
+  user: name=price_book_api shell=/bin/bash createhome=yes
+
+- name: create ssh directory
+  file: path=~/.ssh state=directory
+  sudo: yes
+  sudo_user: price_book_api
+
+- name: Set up authorized_keys for the price_book_api user
+  authorized_key: user=price_book_api key="{{ item }}"
+  with_file:
+    - _keys/grant_petersen-speelman.pub
+
 
