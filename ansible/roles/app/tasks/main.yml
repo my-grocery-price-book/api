@@ -21,6 +21,16 @@
     - ruby2.2-dev
     - ruby-switch
 
+- name: installing puma gem dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - libssl-dev
+
+- name: installing capistrano gem dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - git
+
 - name: Swith to ruby 2.2
   command: ruby-switch --set ruby2.2
 
@@ -35,9 +45,7 @@
 
 - name: upload ngnix price_book_api.conf
   template: src=etc/nginx/conf.d/price_book_api.conf.j2 dest=/etc/nginx/conf.d/price_book_api.conf mode=644 owner=root
-
-- name: restarting ngnix
-  service: name=nginx state=restarted enabled=yes
+  notify: restarting ngnix
 
 - name: create price_book_api user
   user: name=price_book_api shell=/bin/bash createhome=yes

@@ -4,18 +4,26 @@ source 'https://rubygems.org'
 gem 'grape'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'airbrake', '~> 3.1'
-gem 'rake', require: false
+gem 'rake'
 gem 'rubocop'
 
-# deployment
-gem 'capistrano', require: false
-gem 'capistrano-bundler', require: false
+group :production do
+  gem 'puma'
+end
 
 group :development do
-  gem 'shotgun', require: false
+  gem 'shotgun'
+  # deployment
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-bundler'
+end
+
+group :development, :test do
+  gem 'rubocop'
 end
 
 group :test do
   gem 'bacon'
-  gem 'rack-test', require: false
+  gem 'rack-test'
 end
