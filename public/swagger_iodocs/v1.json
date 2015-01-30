@@ -1,0 +1,20 @@
+{
+  "swaggerVersion": "1.2",
+  "basePath": "/v1",
+  "apis": [
+    {
+      "path": "/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Greet our subject with hello!",
+          "type": "string",
+          "nickname": "hello",
+          "parameters": [
+
+          ]
+        }
+      ]
+    }
+  ]
+}
