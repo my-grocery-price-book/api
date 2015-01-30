@@ -5,3 +5,11 @@ build:
     - script:
         name: rake
         code: bundle exec rake
+deploy:
+  steps:
+    - script:
+        name: Ansible
+        code: ansible-playbook -i hosts/production site.yml
+    - script:
+        name: Capistrano
+        code: bundle exec cap production deploy

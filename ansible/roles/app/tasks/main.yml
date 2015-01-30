@@ -61,5 +61,12 @@
   authorized_key: user=price_book_api key="{{ item }}"
   with_file:
     - _keys/grant_petersen-speelman.pub
+    - _keys/wercker.pub
+
+- name: Set up authorized_keys for the {{main_remote_user}} user
+  authorized_key: user={{main_remote_user}} key="{{ item }}"
+  with_file:
+    - _keys/grant_petersen-speelman.pub
+    - _keys/wercker.pub
 
 
