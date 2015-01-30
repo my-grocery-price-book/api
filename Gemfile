@@ -20,6 +20,6 @@ group :development do
 end
 
 group :test do
-  gem 'bacon'
+  gem 'rspec'
   gem 'rack-test'
 end

@@ -1,19 +1,19 @@
 ENV['RACK_ENV'] = 'test'
 
 require './app/api'  # <-- your sinatra app
-require 'bacon'
+require 'rspec'
 require 'rack/test'
 
 describe 'The PriceBook App' do
-  extend Rack::Test::Methods
+  include Rack::Test::Methods
 
   def app
     Rack::Builder.parse_file('./config.ru').first
   end
 
-  it "says hello" do
+  it 'says hello' do
     get '/v1'
-    last_response.should.be.ok
-    last_response.body.should.equal '"Hello World"'
+    expect(last_response).to be_ok
+    expect(last_response.body).to eq('"Hello World"')
   end
 end
