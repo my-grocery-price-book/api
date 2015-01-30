@@ -1,2 +1,4 @@
 vendor/bundle
 tmp/var-cache-apt-archives
+.capistrano
+.vagrant

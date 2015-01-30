@@ -19,10 +19,6 @@ group :development do
   gem 'capistrano-bundler'
 end
 
-group :development, :test do
-  gem 'rubocop'
-end
-
 group :test do
   gem 'bacon'
   gem 'rack-test'

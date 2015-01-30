@@ -21,21 +21,23 @@
     - ruby2.2-dev
     - ruby-switch
 
-- name: installing puma gem dependencies
-  apt: name={{item}} state=present
-  with_items:
-    - libssl-dev
-
-- name: installing capistrano gem dependencies
-  apt: name={{item}} state=present
-  with_items:
-    - git
-
 - name: Swith to ruby 2.2
   command: ruby-switch --set ruby2.2
 
 - name: Install Bundler
-  gem: name=bundler state=present
+  gem: name=bundler state=present user_install=no
+
+- name: installing gem dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - libssl-dev
+    - build-essential
+    - g++
+
+- name: installing capistrano dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - git
 
 - name: install ngnix
   apt: name=nginx state=present
