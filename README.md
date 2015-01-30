@@ -19,6 +19,9 @@
 ```
 
 # Running Tests
+
+[![wercker status](https://app.wercker.com/status/1d3464fefb6fd3a9bf559e302e47ed14/m "wercker status")](https://app.wercker.com/project/bykey/1d3464fefb6fd3a9bf559e302e47ed14)
+
 ```
   bin/bacon spec/*
 ```
