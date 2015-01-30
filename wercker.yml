@@ -7,8 +7,6 @@ build:
         code: bundle exec rake
 deploy:
   steps:
-    - add-ssh-key:
-        keyname: DEPLOY_KEY
     - script:
         name: Capistrano
         code: bundle exec cap production deploy
