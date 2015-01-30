@@ -1,9 +1,0 @@
-{
-  "swaggerVersion": "1.2",
-  "apis": [
-    {
-      "path": "http://localhost:8181/swagger_iodocs/v1.json",
-      "description": "PriceBook v1"
-    }
-  ]
-}

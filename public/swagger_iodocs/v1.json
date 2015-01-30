@@ -1,20 +1,145 @@
 {
-  "swaggerVersion": "1.2",
+  "swagger": "2.0",
   "basePath": "/v1",
-  "apis": [
-    {
-      "path": "/",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Greet our subject with hello!",
-          "type": "string",
-          "nickname": "hello",
-          "parameters": [
-
-          ]
-        }
-      ]
+  "info": {
+    "version": "1.0.0",
+    "title": "Price Book Api",
+    "description": "A Simple Api to keep track of prices"
+  },
+  "paths": {
+    "/entries": {
+      "post": {
+        "description": "Create a new price entry",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "date_on",
+            "in": "formData",
+            "description": "date of the price entry",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "store",
+            "in": "formData",
+            "description": "Name of the store",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "description": "location of the store",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "brand",
+            "in": "formData",
+            "description": "brand name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "quanity",
+            "in": "formData",
+            "description": "quanity",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "quanity_unit",
+            "in": "formData",
+            "description": "what is the quanity measured in",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "total_price",
+            "in": "formData",
+            "description": "Total Price",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "expires_on",
+            "in": "formData",
+            "description": "date the price is no longer valid",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "extra_info",
+            "in": "formData",
+            "description": "Extra information",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      },
+      "get": {
+        "description": "List all the price entries",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "starting_on",
+            "in": "query",
+            "description": "prices starting on",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit the amount of results, defaults to 100",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/entries/{id}": {
+      "get": {
+        "description": "Return single entry based on id",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of entry to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ]
+      },
+      "delete": {
+        "description": "deletes a single single price entry",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of entry to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ]
+      }
     }
-  ]
+  }
 }

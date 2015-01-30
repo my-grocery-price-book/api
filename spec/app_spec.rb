@@ -11,9 +11,8 @@ describe 'The PriceBook App' do
     Rack::Builder.parse_file('./config.ru').first
   end
 
-  it 'says hello' do
-    get '/v1'
-    expect(last_response).to be_ok
-    expect(last_response.body).to eq('"Hello World"')
+  it 'create new entry' do
+    post '/v1/entries'
+    expect(last_response.status).to eq(201)
   end
 end
