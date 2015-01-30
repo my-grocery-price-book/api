@@ -5,7 +5,7 @@ require 'bundler/setup'
 require 'airbrake'
 
 Airbrake.configure do |config|
-#  config.api_key = 'df05cf32058ebb4dc9a2113f6396c8c5'
+  #  config.api_key = 'df05cf32058ebb4dc9a2113f6396c8c5'
   config.host    = 'ubxd-mxit-apps-errbit.herokuapp.com'
   config.port    = 80
   config.secure  = config.port == 443

@@ -9,7 +9,6 @@ set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
 
 set :deploy_to, '/home/price_book_api'
 
-
 # Default value for :log_level is :debug
 set :log_level, :info
 
@@ -31,7 +30,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 set :puma_bind, 'tcp://0.0.0.0:9393'
 
 namespace :deploy do
-
   # after :restart, :clear_cache do
   #   on roles(:web), in: :groups, limit: 3, wait: 10 do
   #     # Here we can do anything such as:
@@ -40,5 +38,4 @@ namespace :deploy do
   #     # end
   #   end
   # end
-
 end

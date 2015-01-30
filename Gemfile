@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 
 # application
 gem 'grape'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'airbrake', '~> 3.1'
 gem 'rake'
-gem 'rubocop'
 
 group :production do
   gem 'puma'
@@ -19,7 +18,11 @@ group :development do
   gem 'capistrano-bundler'
 end
 
-group :test do
+group :development, :test do
+  gem 'rubocop'
   gem 'rspec'
+end
+
+group :test do
   gem 'rack-test'
 end
