@@ -13,18 +13,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
-  location ~* ^/swagger_iodocs {
-    expires 1m;
-    add_header Cache-Control public;
-
-    # Some browsers still send conditional-GET requests if there's a
-    # Last-Modified header or an ETag header even if they haven't
-    # reached the expiry date sent in the Expires header.
-    add_header Last-Modified "";
-    add_header ETag "";
-    break;
-  }
-
   location ~* ^/swagger-ui {
     expires 24h;
     add_header Cache-Control public;

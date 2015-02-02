@@ -2,9 +2,11 @@ source 'https://rubygems.org'
 
 # application
 gem 'grape'
+gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'airbrake', '~> 3.1'
 gem 'rake'
+gem 'elasticsearch'
 
 group :production do
   gem 'puma'

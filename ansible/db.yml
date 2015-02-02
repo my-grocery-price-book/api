@@ -1,0 +1,6 @@
+---
+- hosts: db
+  remote_user: "{{main_remote_user}}"
+  sudo: yes
+  roles:
+    - db
