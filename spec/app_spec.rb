@@ -7,7 +7,10 @@ require 'rack/test'
 describe 'The PriceBook App' do
   before :all do
     @client = Elasticsearch::Client.new
-    #    @client.indices.delete index: 'test' if @client.indices.exist? index: 'test'
+    if @client.indices.exists index: 'test'
+      @client.indices.delete index: 'test'
+      @client.indices.create index: 'test'
+    end
   end
 
   include Rack::Test::Methods
@@ -27,7 +30,7 @@ describe 'The PriceBook App' do
     expect(last_response.status).to eq(201)
     @client.indices.flush index: 'test'
     get '/entries'
-    puts last_response.body
     expect(last_response.status).to eq(200)
+    expect(last_response.body).to include('Pick n Pay')
   end
 end
