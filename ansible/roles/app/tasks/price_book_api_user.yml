@@ -1,0 +1,18 @@
+- name: create price_book_api user
+  user: name=price_book_api shell=/bin/bash createhome=yes
+
+- name: create ssh directory
+  file: path=~/.ssh state=directory
+  sudo: yes
+  sudo_user: price_book_api
+
+- name: Set up authorized_keys for the price_book_api user
+  authorized_key: user=price_book_api key="{{ item }}"
+  with_file:
+    - _deploy_keys/grant_petersen-speelman.pub
+    - _deploy_keys/wercker.pub
+
+- name: Set up authorized_keys for the {{main_remote_user}} user
+  authorized_key: user={{main_remote_user}} key="{{ item }}"
+  with_file:
+    - _ansible_keys/grant_petersen-speelman.pub

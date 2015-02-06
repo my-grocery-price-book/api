@@ -1,2 +1,5 @@
 [app]
-41.79.78.175 main_remote_user=ubuntu app_root=/home/price_book_api/current
+41.79.78.192 main_remote_user=ubuntu app_root=/home/price_book_api/current
+
+[db]
+41.79.78.192 main_remote_user=ubuntu

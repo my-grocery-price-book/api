@@ -22,7 +22,7 @@ end
 
 group :development, :test do
   gem 'rubocop'
-  gem 'rspec'
+  gem 'rspec', '~> 2.9'
 end
 
 group :test do
