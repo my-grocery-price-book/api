@@ -12,3 +12,10 @@ Airbrake.configure do |config|
   ## can also set the environment over here
   config.environment_name = ENV['RACK_ENV']
 end
+
+require 'elasticsearch'
+client = Elasticsearch::Client.new
+index =  (ENV['RACK_ENV'] || 'development')
+unless client.indices.exists index: index
+  client.indices.create index: index
+end

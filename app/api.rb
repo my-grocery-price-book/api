@@ -19,7 +19,7 @@ class PriceBookApi < Grape::API
     desc 'Create a new price book entry'
     params do
       requires :generic_name, type: String, desc: 'Generic Name'
-      requires :date_on, type: Date, desc: 'date of the price entry'
+      optional :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'
       requires :location, type: String, desc: 'location of the store'
       requires :brand, type: String, desc: 'brand name'
@@ -32,6 +32,7 @@ class PriceBookApi < Grape::API
     post do
       client = Elasticsearch::Client.new
       index =  (ENV['RACK_ENV'] || 'development')
+      params[:date_on] ||= Date.today
       client.index index: index, body: params, type: 'price_entry'
     end
 
