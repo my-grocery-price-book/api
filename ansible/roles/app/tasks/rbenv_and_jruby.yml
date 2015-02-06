@@ -32,7 +32,7 @@
   command: sudo -iu root rbenv rehash
 
 - name: Install Bundler
-  gem: name=bundler state=present user_install=no
+  gem: name=bundler state=present user_install=no executable=/usr/local/rbenv/shims/gem
 
 - name: installing gem dependencies
   apt: name={{item}} state=present

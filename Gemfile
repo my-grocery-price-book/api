@@ -15,9 +15,10 @@ end
 group :development do
   gem 'shotgun'
   # deployment
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.3'
   gem 'capistrano3-puma'
   gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
 end
 
 group :development, :test do
