@@ -1,7 +1,6 @@
-ENV['RACK_ENV'] = 'test'
+require 'spec_helper'
 
 require './app/api'  # <-- your sinatra app
-require 'rspec'
 require 'rack/test'
 
 describe 'The PriceBook App' do

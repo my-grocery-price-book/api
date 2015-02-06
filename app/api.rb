@@ -4,6 +4,8 @@ require 'grape'
 require 'grape-swagger'
 require 'elasticsearch'
 
+require './app/models/price_entry/item'
+
 # main grape class
 class PriceBookApi < Grape::API
   default_format :json
@@ -30,16 +32,23 @@ class PriceBookApi < Grape::API
       optional :extra_info, type: String, desc: 'what is the quanity measured in'
     end
     post do
-      client = Elasticsearch::Client.new
-      index =  (ENV['RACK_ENV'] || 'development')
-      params[:date_on] ||= Date.today
-      client.index index: index, body: params, type: 'price_entry'
+      item = PriceEntry::Item.new(generic_name: params.generic_name,
+                                  date_on: params.date_on,
+                                  store: params['store'],
+                                  location: params.location,
+                                  brand: params.brand,
+                                  quanity: params.quanity,
+                                  quanity_unit: params.quanity_unit,
+                                  total_price: params.total_price,
+                                  expires_on: params.expires_on,
+                                  extra_info: params.extra_info)
+      PriceEntry::Repo.instance.create(item)
     end
 
     desc 'get list of price book entries'
     get do
       client = Elasticsearch::Client.new
-      index =  (ENV['RACK_ENV'] || 'development')
+      index =  "price_api_#{ENV['RACK_ENV'] }"
       results = (client.search index: index)
       results['hits']['hits'].map do |hit|
         hit['_source']
