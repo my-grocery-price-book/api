@@ -2,8 +2,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../config/enviroment')
 require 'grape'
 require 'grape-swagger'
-require 'elasticsearch'
 
+require './app/models/price_entry/repo'
 require './app/models/price_entry/item'
 
 # main grape class
@@ -47,12 +47,7 @@ class PriceBookApi < Grape::API
 
     desc 'get list of price book entries'
     get do
-      client = Elasticsearch::Client.new
-      index =  "price_api_#{ENV['RACK_ENV'] }"
-      results = (client.search index: index)
-      results['hits']['hits'].map do |hit|
-        hit['_source']
-      end
+      PriceEntry::Repo.instance.all_as_hash
     end
   end
 

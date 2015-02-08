@@ -1,2 +1,2 @@
-- name: restarting elasticsearch
-  service: name=elasticsearch state=restarted enabled=yes
+- name: restarting couchdb
+  service: name=couchdb state=restarted enabled=yes

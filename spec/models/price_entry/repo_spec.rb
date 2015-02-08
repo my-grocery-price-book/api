@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 require './app/models/price_entry/repo'
-require './app/models/price_entry/item'
 
 describe PriceEntry::Repo do
   subject { PriceEntry::Repo.instance }
@@ -24,7 +23,7 @@ describe PriceEntry::Repo do
     it 'stores a single entry' do
       price_entry_id = subject.create(price_entry)
       stored_price_entry = subject.find_by_id(price_entry_id)
-      expect(stored_price_entry.to_hash).to eq(price_entry.to_hash)
+      expect(subject.price_entry_to_hash(stored_price_entry)).to eq(subject.price_entry_to_hash(price_entry))
     end
   end
 end
