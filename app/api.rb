@@ -53,7 +53,7 @@ class PriceBookApi < Grape::API
 
     desc 'get list of price book entries'
     get do
-      price_repo.all_as_hash
+      price_repo.all_as_array_hash
     end
   end
 

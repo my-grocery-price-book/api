@@ -1,2 +1,0 @@
-- name: restarting couchdb
-  service: name=couchdb state=restarted enabled=yes

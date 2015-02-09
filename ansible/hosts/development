@@ -1,5 +1,2 @@
 [app]
 192.168.33.10 main_remote_user=vagrant app_root=/vagrant
-
-[db]
-192.168.33.10 main_remote_user=vagrant

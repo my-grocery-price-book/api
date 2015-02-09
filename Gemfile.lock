@@ -36,10 +36,6 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     colorize (0.7.5)
-    couchrest (1.2.0)
-      mime-types (~> 1.15)
-      multi_json (~> 1.0)
-      rest-client (~> 1.6.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
@@ -65,7 +61,6 @@ GEM
     ice_nine (0.11.1)
     json (1.8.2)
     json (1.8.2-java)
-    mime-types (1.25.1)
     minitest (5.5.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -89,11 +84,6 @@ GEM
       rack (>= 1.0)
     rainbow (2.0.0)
     rake (10.4.2)
-    rdoc (4.2.0)
-      json (~> 1.4)
-    rest-client (1.6.8)
-      mime-types (~> 1.16)
-      rdoc (>= 2.4.2)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -140,7 +130,6 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rbenv
   capistrano3-puma
-  couchrest
   grape
   grape-swagger
   puma

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require './app/models/price_entry/item'  # <-- your sinatra app
+require './app/models/price_entry/item'
 
 describe PriceEntry::Item do
   subject { PriceEntry::Item.new(name: 'Soda', unit: 'Liters') }
@@ -24,15 +24,15 @@ describe PriceEntry::Item do
                         quanity: 2,
                         total_price: 13.99,
                         expires_on: Date.today + 1,
-                        extra_info: 'Cooldrink' )
-      expect(subject.prices).to eq([{date_on: Date.today,
-                                    store: 'Pick n Pay',
-                                    location: 'Canal Walk',
-                                    brand: 'Coke',
-                                    quanity: 2,
-                                    total_price: 13.99,
-                                    expires_on: Date.today + 1,
-                                    extra_info: 'Cooldrink'}])
+                        extra_info: 'Cooldrink')
+      expect(subject.prices).to eq([{ date_on: Date.today,
+                                      store: 'Pick n Pay',
+                                      location: 'Canal Walk',
+                                      brand: 'Coke',
+                                      quanity: 2,
+                                      total_price: 13.99,
+                                      expires_on: Date.today + 1,
+                                      extra_info: 'Cooldrink' }])
     end
   end
 end

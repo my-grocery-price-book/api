@@ -6,7 +6,6 @@ gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'airbrake', '~> 3.1'
 gem 'rake'
-gem 'couchrest'
 
 group :production do
   gem 'puma'
