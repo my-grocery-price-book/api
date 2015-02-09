@@ -3,51 +3,38 @@ require 'couchrest'
 
 require './app/models/price_entry/item'
 
+
 module PriceEntry
   # class the is used to store and retrieve price items
   class Repo
     include Singleton
 
-    attr_reader :db
-
     def initialize
-      @db = CouchRest.database!("http://127.0.0.1:5984/price_api_#{ENV['RACK_ENV']}")
+      @all_objects = Hash.new do |hash, key|
+        hash[key] = PriceEntry::Item.new(name: key.first,unit: key.last)
+      end
     end
 
-    def create(price_entry_object)
-      result = db.save_doc(price_entry_to_hash(price_entry_object))
-      result['id']
+    def find_or_create_by_name_and_unit(name:, unit:)
+      @all_objects[[name,unit]]
     end
 
-    def find_by_id(id)
-      doc = db.get(id)
-      key_doc = doc.to_hash.inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo }
-      PriceEntry::Item.new(key_doc)
-    end
-
-    def price_entry_to_hash(p)
-      {
-        generic_name: p.generic_name,
-        date_on: p.date_on,
-        store: p.store,
-        location: p.location,
-        brand: p.brand,
-        quanity: p.quanity,
-        quanity_unit: p.quanity_unit,
-        total_price: p.total_price,
-        expires_on: p.expires_on,
-        extra_info: p.extra_info
-      }
+    def save(item)
+      @all_objects[[item.name,item.unit]] = item
     end
 
     def all_as_hash
-      db.all_docs['rows'].map do |row|
-        db.get(row['id'])
+      @all_objects.map do |key,item|
+        {
+          generic_name: item.name,
+          quanity_unit: item.unit,
+          prices: item.prices
+        }
       end
     end
 
     def reset
-      db.recreate!
+      @all_objects.clear
     end
   end
 end

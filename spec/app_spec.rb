@@ -4,10 +4,6 @@ require './app/models/price_entry/repo'
 require 'rack/test'
 
 describe 'The PriceBook App' do
-  before :all do
-    PriceEntry::Repo.instance.reset
-  end
-
   include Rack::Test::Methods
 
   def app

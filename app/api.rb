@@ -6,6 +6,10 @@ require 'grape-swagger'
 require './app/models/price_entry/repo'
 require './app/models/price_entry/item'
 
+def price_repo
+  PriceEntry::Repo.instance
+end
+
 # main grape class
 class PriceBookApi < Grape::API
   default_format :json
@@ -32,22 +36,24 @@ class PriceBookApi < Grape::API
       optional :extra_info, type: String, desc: 'what is the quanity measured in'
     end
     post do
-      item = PriceEntry::Item.new(generic_name: params.generic_name,
-                                  date_on: params.date_on,
-                                  store: params['store'],
-                                  location: params.location,
-                                  brand: params.brand,
-                                  quanity: params.quanity,
-                                  quanity_unit: params.quanity_unit,
-                                  total_price: params.total_price,
-                                  expires_on: params.expires_on,
-                                  extra_info: params.extra_info)
-      PriceEntry::Repo.instance.create(item)
+      item = price_repo.find_or_create_by_name_and_unit(
+        name: params.generic_name,
+        unit: params.quanity_unit
+      )
+      item.add_price(date_on: params.date_on,
+                     store: params['store'],
+                     location: params.location,
+                     brand: params.brand,
+                     quanity: params.quanity,
+                     total_price: params.total_price,
+                     expires_on: params.expires_on,
+                     extra_info: params.extra_info)
+      price_repo.save(item)
     end
 
     desc 'get list of price book entries'
     get do
-      PriceEntry::Repo.instance.all_as_hash
+      price_repo.all_as_hash
     end
   end
 
