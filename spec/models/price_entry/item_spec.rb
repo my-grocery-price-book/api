@@ -4,25 +4,29 @@ require './app/models/price_entry/item'  # <-- your sinatra app
 
 describe PriceEntry::Item do
   describe 'class methods' do
-
     let(:valid_attributes) do
-      {generic_name: 'Soda',
-       date_on: Date.today,
-       store: 'Pick n Pay',
-       location: 'Canal Walk',
-       brand: 'Coke',
-       quanity: 2,
-       quanity_unit: 'Liters',
-       total_price: 13.99,
-       expires_on: Date.today + 1,
-       extra_info: 'Cooldrink'}
+      { _id: '111',
+        generic_name: 'Soda',
+        date_on: Date.today,
+        store: 'Pick n Pay',
+        location: 'Canal Walk',
+        brand: 'Coke',
+        quanity: 2,
+        quanity_unit: 'Liters',
+        total_price: 13.99,
+        expires_on: Date.today + 1,
+        extra_info: 'Cooldrink' }
     end
 
     context 'sets attributes' do
-      subject {PriceEntry::Item.new(valid_attributes)}
+      subject { PriceEntry::Item.new(valid_attributes) }
+
+      it 'sets id' do
+        expect(subject.id).to eq('111')
+      end
 
       it 'sets generic_name' do
-          expect(subject.generic_name).to eq('Soda')
+        expect(subject.generic_name).to eq('Soda')
       end
 
       it 'sets date_on' do

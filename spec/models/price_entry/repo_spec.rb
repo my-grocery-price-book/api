@@ -18,7 +18,6 @@ describe PriceEntry::Repo do
                          extra_info: 'Cooldrink')
   end
 
-
   describe 'create' do
     it 'stores a single entry' do
       price_entry_id = subject.create(price_entry)

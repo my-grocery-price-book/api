@@ -4,8 +4,15 @@ require 'couchrest'
 require './app/models/price_entry/item'
 
 module PriceEntry
+  # class the is used to store and retrieve price items
   class Repo
     include Singleton
+
+    attr_reader :db
+
+    def initialize
+      @db = CouchRest.database!("http://127.0.0.1:5984/price_api_#{ENV['RACK_ENV']}")
+    end
 
     def create(price_entry_object)
       result = db.save_doc(price_entry_to_hash(price_entry_object))
@@ -14,16 +21,8 @@ module PriceEntry
 
     def find_by_id(id)
       doc = db.get(id)
-      PriceEntry::Item.new(generic_name: doc['generic_name'],
-                           date_on: Date.parse(doc['date_on']),
-                           store: doc['store'],
-                           location: doc['location'],
-                           brand: doc['brand'],
-                           quanity: doc['quanity'],
-                           quanity_unit: doc['quanity_unit'],
-                           total_price: doc['total_price'],
-                           expires_on: Date.parse(doc['expires_on']),
-                           extra_info: doc['extra_info'])
+      key_doc = doc.to_hash.inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo }
+      PriceEntry::Item.new(key_doc)
     end
 
     def price_entry_to_hash(p)
@@ -49,12 +48,6 @@ module PriceEntry
 
     def reset
       db.recreate!
-    end
-
-    private
-
-    def db
-      @db ||= CouchRest.database!("http://127.0.0.1:5984/price_api_#{ENV['RACK_ENV']}")
     end
   end
 end
