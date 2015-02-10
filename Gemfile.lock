@@ -1,14 +1,3 @@
-GIT
-  remote: git://github.com/rom-rb/rom.git
-  revision: 97107d887bbec6fb94fe38d451ae136fcaf00cd7
-  specs:
-    rom (0.6.0)
-      descendants_tracker (~> 0.0, >= 0.0.4)
-      equalizer (~> 0.0, >= 0.0.9)
-      inflecto (~> 0.0, >= 0.0.2)
-      thread_safe (~> 0.3)
-      transproc (~> 0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,6 +36,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     colorize (0.7.5)
+    daybreak (0.3.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
@@ -70,7 +60,6 @@ GEM
     hashie (3.3.2)
     i18n (0.7.0)
     ice_nine (0.11.1)
-    inflecto (0.0.2)
     json (1.8.2)
     json (1.8.2-java)
     minitest (5.5.1)
@@ -124,7 +113,6 @@ GEM
       net-ssh (>= 2.8.0)
     thread_safe (0.3.4)
     thread_safe (0.3.4-java)
-    transproc (0.1.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     virtus (1.0.4)
@@ -143,13 +131,13 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rbenv
   capistrano3-puma
+  daybreak
   grape
   grape-swagger
   puma
   rack-cors
   rack-test
   rake
-  rom!
   rspec
   rubocop
   shotgun

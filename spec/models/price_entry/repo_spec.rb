@@ -11,7 +11,7 @@ describe PriceEntry::Repo do
 
   describe 'find_or_create_by_name_and_unit' do
     it 'creates a new price_entry' do
-      item = subject.find_or_create_by_name_and_unit('Soda','Liters')
+      item = subject.find_or_create_by_name_and_unit('Soda', 'Liters')
       expect(item).to be_kind_of(PriceEntry::Item)
       expect([item.name, item.unit, item.prices]).to eq(['Soda', 'Liters', []])
     end
