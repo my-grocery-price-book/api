@@ -37,8 +37,7 @@ class PriceBookApi < Grape::API
     end
     post do
       item = price_repo.find_or_create_by_name_and_unit(
-        name: params.generic_name,
-        unit: params.quanity_unit
+        params.generic_name, params.quanity_unit
       )
       item.add_price(date_on: params.date_on,
                      store: params['store'],

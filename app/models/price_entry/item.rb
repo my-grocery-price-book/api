@@ -1,16 +1,12 @@
 module PriceEntry
   # Single model representing a price of a item at a specific time and store
   class Item
-    attr_reader :name, :unit
+    attr_reader :name, :unit, :prices
 
-    def prices
-      @prices.clone.freeze
-    end
-
-    def initialize(name:, unit:)
+    def initialize(name:, unit:, prices: [])
       @name = name
       @unit = unit
-      @prices = []
+      @prices = prices
     end
 
     def add_price(date_on:, store:, location:, brand:, quanity:,

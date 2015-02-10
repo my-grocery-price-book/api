@@ -6,6 +6,7 @@ gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'airbrake', '~> 3.1'
 gem 'rake'
+gem 'rom', github: 'rom-rb/rom'
 
 group :production do
   gem 'puma'
