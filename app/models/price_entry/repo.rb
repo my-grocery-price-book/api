@@ -26,13 +26,9 @@ module PriceEntry
       end
     end
 
-    def all_as_array_hash
+    def all
       @storage.map do |_id, item|
-        {
-          generic_name: item.name,
-          quanity_unit: item.unit,
-          prices: item.prices
-        }
+        item
       end
     end
 

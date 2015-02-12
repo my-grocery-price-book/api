@@ -26,5 +26,5 @@
 ```
   vagrant ssh
   cd /vagrant
-  bin/cap production deploy  # can also do bin/cap development deploy
+  bin/cap production deploy  # can also do 'bin/cap development deploy' to deploy to vagrant
 ```

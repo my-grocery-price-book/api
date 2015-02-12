@@ -48,11 +48,18 @@ class PriceBookApi < Grape::API
                      expires_on: params.expires_on,
                      extra_info: params.extra_info)
       price_repo.save(item)
+      true
     end
 
     desc 'get list of price book entries'
     get do
-      price_repo.all_as_array_hash
+      price_repo.all.map do |item|
+        {
+          generic_name: item.name,
+          quanity_unit: item.unit,
+          prices: item.prices
+        }
+      end
     end
   end
 

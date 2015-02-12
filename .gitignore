@@ -2,3 +2,4 @@ vendor/bundle
 tmp/var-cache-apt-archives
 .vagrant
 coverage
+db/*.db

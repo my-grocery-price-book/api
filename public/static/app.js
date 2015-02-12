@@ -6,6 +6,8 @@ $('#create_form').submit(function (e) {
     $.ajax({url: "/entries.json"}).done(function (entries) {
 
     });
+  }).error(function() {
+    alert('Error!');
   });
 });
 
