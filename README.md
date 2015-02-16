@@ -11,7 +11,7 @@
   vagrant ssh
   cd /vagrant
   bundle install --path vendor/bundle
-  bin/shotgun -o 0.0.0.0 # open browser and visit http://localhost:9191 or through ngnix http://localhost:8181
+  bundle exec shotgun -o 0.0.0.0 -s webrick # open browser and visit http://localhost:9191 or through ngnix http://localhost:8181
 ```
 
 # Running Tests
@@ -26,5 +26,5 @@
 ```
   vagrant ssh
   cd /vagrant
-  bin/cap production deploy  # can also do 'bin/cap development deploy' to deploy to vagrant
+  bundle exec cap production deploy  # can also do 'bin/cap development deploy' to deploy to vagrant
 ```

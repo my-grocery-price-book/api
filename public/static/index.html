@@ -29,26 +29,50 @@
   </div>
 </nav>
 
-<div class="container theme-showcase">
-  <form id="create_form">
-    <input name="generic_name" type="text" placeholder="Name" required>
-    <input name="date_on" type="date" placeholder="Date on">
-    <input name="store" type="text" placeholder="Store" required>
-    <input name="location" type="text" placeholder="Location" required>
-    <input name="brand" type="text" placeholder="Brand" required>
-    <input name="quanity" type="text" placeholder="Quantity" required>
-    <input name="quanity_unit" type="text" placeholder="Quantity unit" required>
-    <input name="total_price" type="text" placeholder="Total Price" required>
-    <input name="expires_on" type="date" placeholder="Expires on">
-    <input name="extra_info" type="text" placeholder="Extra info">
-    <input type="submit" class="button" name="Create">
-  </form>
+<div class="container-fluid theme-showcase">
+  <div class="row">
+    <div class="col-md-6">
+      <form id="create_form" class="form-inline">
+        <div class="form-group">
+          <input name="generic_name" type="text" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <input name="date_on" type="date" placeholder="Date on">
+        </div>
+        <div class="form-group">
+          <input name="store" type="text" placeholder="Store" required>
+        </div>
+        <div class="form-group">
+          <input name="location" type="text" placeholder="Location" required>
+        </div>
+        <div class="form-group">
+          <input name="brand" type="text" placeholder="Brand" required>
+        </div>
+        <div class="form-group">
+          <input name="quanity" type="text" placeholder="Quantity" required>
+        </div>
+        <div class="form-group">
+          <input name="quanity_unit" type="text" placeholder="Quantity unit" required>
+        </div>
+        <div class="form-group">
+          <input name="total_price" type="text" placeholder="Total Price" required>
+        </div>
+        <div class="form-group">
+          <input name="expires_on" type="date" placeholder="Expires on">
+        </div>
+        <div class="form-group">
+          <input name="extra_info" type="text" placeholder="Extra info">
+        </div>
+        <input type="submit" class="button" name="Create">
+      </form>
+    </div>
 
-  <table class="table">
-    <tbody id="entries_table">
+    <div class="col-md-6">
+      <div id="entries">
 
-    </tbody>
-  </table>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- /.container -->
 
@@ -57,6 +81,11 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<script src="/app.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
+
+
+<script src="/static/app.js"></script>
+<script src="/static/enable_typeahead.js"></script>
+
 </body>
 </html>

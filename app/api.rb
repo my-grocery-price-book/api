@@ -21,6 +21,31 @@ class PriceBookApi < Grape::API
     error_response(message: e.message)
   end
 
+  desc 'get all the stores'
+  get '/store_names' do
+    price_repo.store_names
+  end
+
+  desc 'get all the location names'
+  get '/location_names' do
+    price_repo.location_names
+  end
+
+  desc 'get all the brand names'
+  get '/brand_names' do
+    price_repo.brand_names
+  end
+
+  desc 'get all the unit names'
+  get '/unit_names' do
+    price_repo.unit_names
+  end
+
+  desc 'get all the product names'
+  get '/product_names' do
+    price_repo.product_names
+  end
+
   resource :entries do
     desc 'Create a new price book entry'
     params do

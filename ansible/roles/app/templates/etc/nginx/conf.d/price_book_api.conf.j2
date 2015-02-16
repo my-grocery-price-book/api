@@ -14,14 +14,8 @@ server {
   }
 
   location ~* ^/static {
-    expires 24h;
-    add_header Cache-Control public;
-
-    # Some browsers still send conditional-GET requests if there's a
-    # Last-Modified header or an ETag header even if they haven't
-    # reached the expiry date sent in the Expires header.
-    add_header Last-Modified "";
-    add_header ETag "";
-    break;
+    gzip_static on;
+    expires off;
+    # add_header Cache-Control public;
   }
 }

@@ -12,7 +12,7 @@ module PriceEntry
     def add_price(date_on:, store:, location:, brand:, quanity:,
                    total_price:, expires_on: nil, extra_info: nil)
       @prices.push(
-        date_on: date_on,
+        date_on: date_on || Date.today,
         store: store,
         location: location,
         brand: brand,

@@ -47,16 +47,7 @@ describe PriceEntry::Repo do
         total_price: 50
       )
       subject.save(item)
-      expect(subject.all_as_array_hash)
-        .to eq([{ generic_name: 'Weetbix', quanity_unit: 'Grams',
-                  prices: [{ date_on: Date.today,
-                             store: 'Checkers',
-                             location: 'Canal Walk',
-                             brand: 'Weetbix',
-                             quanity: 500,
-                             total_price: 50,
-                             expires_on: nil,
-                             extra_info: nil }] }])
+      expect(subject.all).to include(item)
     end
   end
 end
