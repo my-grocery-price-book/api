@@ -34,7 +34,7 @@ describe PriceEntry::Item do
 
   describe 'add_price' do
     it 'sets name' do
-      price = { date_on: Date.today,
+      price = { date_on: Date.today + 1,
                 store: 'Pick n Pay',
                 location: 'Canal Walk',
                 brand: 'Coke',
@@ -45,6 +45,19 @@ describe PriceEntry::Item do
       item = PriceEntry::Item.new(name: 'Soda', unit: 'Liters')
       item.add_price(price)
       expect(item.prices).to eq([price])
+    end
+
+    it 'sets default date_on to today if not passed in' do
+      price = { store: 'Pick n Pay',
+                location: 'Canal Walk',
+                brand: 'Coke',
+                quanity: 2,
+                total_price: 13.99,
+                expires_on: Date.today + 1,
+                extra_info: 'Cooldrink' }
+      item = PriceEntry::Item.new(name: 'Soda', unit: 'Liters')
+      item.add_price(price)
+      expect(item.prices.last[:date_on]).to eq(Date.today)
     end
   end
 end

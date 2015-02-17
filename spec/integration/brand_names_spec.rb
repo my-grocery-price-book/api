@@ -3,8 +3,8 @@ require 'integration_helper'
 describe '/brand_names', type: :integration do
   it 'successfull response' do
     get '/brand_names'
-    expect(last_response.status).to eq(200)
     expect(last_response.body).to eq('[]')
+    expect(last_response.status).to eq(200)
   end
 
   it 'successfull response' do

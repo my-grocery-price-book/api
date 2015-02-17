@@ -3,20 +3,24 @@ require 'date'
 module PriceEntry
   # Single model representing a price of a item at a specific time and store
   class Item
-    attr_reader :name, :unit, :prices
+    attr_reader :name, :unit
+
+    def prices
+      @prices.to_a
+    end
 
     def initialize(name:, unit:, prices: [])
       @name = name
       @unit = unit
-      @prices = []
+      @prices = Set.new
       prices.each do |price|
-        add_price(price.clone)
+        add_price(price)
       end
     end
 
-    def add_price(date_on:, store:, location:, brand:, quanity:,
-                   total_price:, expires_on: nil, extra_info: nil)
-      @prices.push(
+    def add_price(store:, location:, brand:, quanity:,
+                   total_price:, date_on: nil, expires_on: nil, extra_info: nil)
+      @prices.add(
         date_on: date_on || Date.today,
         store: store,
         location: location,

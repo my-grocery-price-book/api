@@ -31,7 +31,8 @@
 
 # Conventions
 
-* We aim for 99 percent coverage
+* We aim for 100 percent coverage
+* We aim for 100 mutant coverage for non IO classes
 * We aim to please rubocop  (`rake rubocop:auto_correct` helps with this)
 * Integration spec files are named after the end point they hit
 * Integration specs are black box specs

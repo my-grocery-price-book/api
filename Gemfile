@@ -24,9 +24,11 @@ end
 group :development, :test do
   gem 'rubocop'
   gem 'rspec'
+  gem 'parallel_tests'
 end
 
 group :test do
+  gem 'mutant-rspec'
   gem 'rack-test'
   gem 'simplecov'
 end

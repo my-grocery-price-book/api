@@ -4,7 +4,6 @@ require 'grape'
 require 'grape-swagger'
 
 require './app/models/price_entry/repo'
-require './app/models/price_entry/item'
 
 def price_repo
   PriceEntry::Repo.instance
