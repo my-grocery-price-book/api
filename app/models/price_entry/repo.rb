@@ -10,29 +10,29 @@ module PriceEntry
 
     def initialize
       @storage = Daybreak::DB.new("./db/price_entry_#{ENV['RACK_ENV']}.db")
-      at_exit {
+      at_exit do
         @storage.close
-      }
+      end
     end
 
     def store_names
-      @storage.map{|_id, item| item.prices.map{|p| p[:store] } }.flatten.uniq
+      @storage.map { |_id, item| item.prices.map { |p| p[:store] } }.flatten.uniq
     end
 
     def location_names
-      @storage.map{|_id, item| item.prices.map{|p| p[:location] } }.flatten.uniq
+      @storage.map { |_id, item| item.prices.map { |p| p[:location] } }.flatten.uniq
     end
 
     def brand_names
-      @storage.map{|_id, item| item.prices.map{|p| p[:brand] } }.flatten.uniq
+      @storage.map { |_id, item| item.prices.map { |p| p[:brand] } }.flatten.uniq
     end
 
     def unit_names
-      @storage.map{|_id, item| item.unit }.uniq
+      @storage.map { |_id, item| item.unit }.uniq
     end
 
     def product_names
-      @storage.map{|_id, item| item.name }.uniq
+      @storage.map { |_id, item| item.name }.uniq
     end
 
     def find_or_create_by_name_and_unit(name, unit)
