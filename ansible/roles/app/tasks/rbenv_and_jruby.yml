@@ -23,10 +23,10 @@
     - openjdk-7-jre
 
 - name: install ruby
-  command: sudo -iu root rbenv install jruby-9.0.0.0-pre1 creates=/usr/local/rbenv/versions/jruby-9.0.0.0-pre1
+  command: sudo -iu root rbenv install 2.2.0 creates=/usr/local/rbenv/versions/2.2.0
 
 - name: set default ruby
-  command: sudo -iu root rbenv global jruby-9.0.0.0-pre1
+  command: sudo -iu root rbenv global 2.2.0
 
 - name: rbenv rehash
   command: sudo -iu root rbenv rehash
