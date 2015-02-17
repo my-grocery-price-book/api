@@ -28,3 +28,9 @@
   cd /vagrant
   bundle exec cap production deploy  # can also do 'bin/cap development deploy' to deploy to vagrant
 ```
+
+# Conventions
+
+* We aim for 99 percent coverage
+* Integration spec files are named after the end point they hit
+* Integration specs are black box specs
