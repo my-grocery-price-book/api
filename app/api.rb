@@ -16,9 +16,12 @@ class PriceBookApi < Grape::API
 
   rescue_from :all do |e|
     Airbrake.notify(e)
-    puts e.message
-    puts e.backtrace.join("\n")
     error_response(message: e.message)
+  end
+
+  desc 'Test Airbrake'
+  get '/test_airbrake' do
+    fail 'Test Airbrake'
   end
 
   desc 'get all the stores'

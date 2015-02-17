@@ -1,3 +1,5 @@
+require 'date'
+
 module PriceEntry
   # Single model representing a price of a item at a specific time and store
   class Item
@@ -6,7 +8,10 @@ module PriceEntry
     def initialize(name:, unit:, prices: [])
       @name = name
       @unit = unit
-      @prices = prices
+      @prices = []
+      prices.each do |price|
+        add_price(price.clone)
+      end
     end
 
     def add_price(date_on:, store:, location:, brand:, quanity:,

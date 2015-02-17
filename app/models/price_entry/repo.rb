@@ -64,13 +64,5 @@ module PriceEntry
     def find_by_name_and_unit(name, unit)
       @storage["#{name}_#{unit}"]
     end
-
-    def item_to_hash(item)
-      {
-        generic_name: item.generic_name,
-        quanity_unit: item.quanity_unit,
-        prices: item.prices
-      }
-    end
   end
 end
