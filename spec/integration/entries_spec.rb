@@ -1,23 +1,6 @@
-require 'spec_helper'
+require 'integration_helper'
 
-require './app/models/price_entry/repo'
-require 'rack/test'
-
-describe 'The PriceBook App' do
-  include Rack::Test::Methods
-  before :each do
-    PriceEntry::Repo.instance.reset
-  end
-
-  def app
-    Rack::Builder.parse_file('./config.ru').first
-  end
-
-  it 'gets the auto generated docs' do
-    get '/swagger_doc'
-    expect(last_response.status).to eq(200)
-  end
-
+describe '/entries', type: :integration do
   it 'create new entry' do
     post '/entries', date_on: Date.today.to_s, store: 'Pick n Pay', location: 'Canal Walk', brand: 'Coke',
                      generic_name: 'Soda', quanity: '2', quanity_unit: 'Liters', total_price: '13.99'
@@ -47,7 +30,6 @@ describe 'The PriceBook App' do
                      generic_name: 'Soda', quanity: '2', quanity_unit: 'Liters', total_price: '12.99'
     get '/entries'
     expect(last_response.status).to eq(200)
-    puts last_response.body
     expect(last_response.body).to include('Pick n Pay')
     expect(last_response.body).to include('Shoprite')
   end
