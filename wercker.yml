@@ -1,4 +1,4 @@
-box: wercker/box-rvm
+box: pharkle/ubuntu12.04-ruby2.2.0@1.0.1
 build:
   steps:
     - bundle-install
