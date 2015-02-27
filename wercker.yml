@@ -1,8 +1,6 @@
-box: wercker/ruby
+box: wercker/box-rvm
 build:
   steps:
-    - rvm-use:
-        version: ruby-2.1.0
     - bundle-install
     - script:
         name: rake
