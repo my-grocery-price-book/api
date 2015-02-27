@@ -22,12 +22,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network 'forwarded_port', guest: 80, host: 8181
-  config.vm.network 'forwarded_port', guest: 9393, host: 9191
+  # config.vm.network 'forwarded_port', guest: 80, host: 8181
+  # config.vm.network 'forwarded_port', guest: 9393, host: 9191
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network :private_network, ip: '192.168.33.10'
+  config.vm.network :private_network, ip: '192.168.33.10'
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -62,8 +62,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # information on available options.
 
   # config.vm.provision 'ansible' do |cf|
-  #   cf.playbook = 'ansible/app.yml'
-  #   cf.inventory_path = 'ansible/hosts/development'
+  #   cf.playbook = 'ansible/site.yml'
+  #   # cf.inventory_path = '.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory'
+  #   # cf.host_key_checking = false
   # end
 
   # Enable provisioning with CFEngine. CFEngine Community packages are

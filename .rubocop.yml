@@ -5,5 +5,5 @@ Metrics/MethodLength:
   Max: 20
 
 Metrics/ParameterLists:
-  Max: 6
+  Max: 8
   CountKeywordArgs: false

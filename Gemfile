@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 gem 'grape'
 gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
-gem 'airbrake', '~> 3.1'
 gem 'rake'
-gem 'daybreak'
+gem 'sequel'
+gem 'sqlite3'
 
 group :production do
   gem 'puma'

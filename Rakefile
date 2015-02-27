@@ -11,6 +11,7 @@ begin
   require 'mutant'
   desc 'Run mutation tests on the full PriceEntry namespace'
   task :mutant do
+    ENV['MUTANT'] = 'yes'
     result = Mutant::CLI.run(%w(-r ./app/models/price_entry --use rspec PriceEntry*))
     fail unless result == Mutant::CLI::EXIT_SUCCESS
   end

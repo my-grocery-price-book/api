@@ -31,6 +31,7 @@
 
 # Conventions
 
+* Each api endpoint calls only one one command or query class
 * We aim for 100 percent coverage
 * We aim for 100 mutant coverage for non IO classes
 * We aim to please rubocop  (`rake rubocop:auto_correct` helps with this)

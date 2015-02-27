@@ -1,2 +1,2 @@
 [app]
-default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 main_remote_user=vagrant app_root=/vagrant
+192.168.33.10 main_remote_user=vagrant app_root=/vagrant

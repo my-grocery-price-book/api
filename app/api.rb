@@ -3,49 +3,45 @@ require File.expand_path(File.dirname(__FILE__) + '/../config/enviroment')
 require 'grape'
 require 'grape-swagger'
 
-require './app/models/price_entry/repo'
-
-def price_repo
-  PriceEntry::Repo.instance
-end
+require './app/models/price_entry'
 
 # main grape class
 class PriceBookApi < Grape::API
   default_format :json
 
   rescue_from :all do |e|
-    Airbrake.notify(e)
+    LOGGER.error(e)
     error_response(message: e.message)
   end
 
   desc 'Test Airbrake'
-  get '/test_airbrake' do
-    fail 'Test Airbrake'
+  get '/test_failure' do
+    fail 'Test Failure'
   end
 
   desc 'get all the stores'
   get '/store_names' do
-    price_repo.store_names
+    PriceEntry::StoreNamesQuery.new.execute
   end
 
   desc 'get all the location names'
   get '/location_names' do
-    price_repo.location_names
+    PriceEntry::LocationNamesQuery.new.execute
   end
 
   desc 'get all the brand names'
   get '/brand_names' do
-    price_repo.brand_names
+    PriceEntry::BrandNamesQuery.new.execute
   end
 
   desc 'get all the unit names'
   get '/unit_names' do
-    price_repo.unit_names
+    PriceEntry::UnitNamesQuery.new.execute
   end
 
   desc 'get all the product names'
   get '/product_names' do
-    price_repo.product_names
+    PriceEntry::ProductNamesQuery.new.execute
   end
 
   resource :entries do
@@ -63,30 +59,22 @@ class PriceBookApi < Grape::API
       optional :extra_info, type: String, desc: 'what is the quanity measured in'
     end
     post do
-      item = price_repo.find_or_create_by_name_and_unit(
-        params.generic_name, params.quanity_unit
-      )
-      item.add_price(date_on: params.date_on,
-                     store: params['store'],
-                     location: params.location,
-                     brand: params.brand,
-                     quanity: params.quanity,
-                     total_price: params.total_price,
-                     expires_on: params.expires_on,
-                     extra_info: params.extra_info)
-      price_repo.save(item)
+      PriceEntry::AddPriceCommand.new(name: params.generic_name,
+                                      date_on: params.date_on,
+                                      store: params['store'],
+                                      location: params.location,
+                                      brand: params.brand,
+                                      quanity: params.quanity,
+                                      quanity_unit: params.quanity_unit,
+                                      total_price: params.total_price,
+                                      expires_on: params.expires_on,
+                                      extra_info: params.extra_info).execute
       true
     end
 
     desc 'get list of price book entries'
     get do
-      price_repo.all.map do |item|
-        {
-          generic_name: item.name,
-          quanity_unit: item.unit,
-          prices: item.prices
-        }
-      end
+      PriceEntry::ProductsQuery.new.execute
     end
   end
 
