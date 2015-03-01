@@ -7,6 +7,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 gem 'sequel'
 gem 'sqlite3'
+gem 'syslogger'
 
 group :production do
   gem 'puma'

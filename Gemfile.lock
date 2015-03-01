@@ -159,6 +159,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    syslogger (1.6.0)
     thread_safe (0.3.4)
     thread_safe (0.3.4-java)
     tzinfo (1.2.2)
@@ -200,3 +201,4 @@ DEPENDENCIES
   shotgun
   simplecov
   sqlite3
+  syslogger

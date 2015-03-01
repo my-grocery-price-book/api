@@ -3,7 +3,12 @@ require 'rubygems'
 require 'bundler/setup'
 require 'logger'
 
-LOGGER = Logger.new('log/test.log')
+if ENV['RACK_ENV'] == 'production'
+  require 'syslogger'
+  Syslogger.new('grocery_api', Syslog::LOG_PID, Syslog::LOG_LOCAL0)
+else
+  LOGGER = Logger.new('log/test.log')
+end
 
 require 'sequel'
 DB = ENV['MUTANT'] ? Sequel.sqlite : Sequel.connect("sqlite://db/sqlite3/#{ENV['RACK_ENV']}_data.db")
