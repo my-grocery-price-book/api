@@ -19,5 +19,3 @@ module PriceEntry
     end
   end
 end
-
-DB.create_view(:products, DB[:price_entries].distinct.select(:name, :quanity_unit), temp: true)

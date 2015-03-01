@@ -9,5 +9,3 @@ module PriceEntry
     end
   end
 end
-
-DB.create_view(:product_names, DB[:price_entries].distinct.select(:name), temp: true)

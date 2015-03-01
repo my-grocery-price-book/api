@@ -55,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Use VBoxManage to customize the VM. For example to change memory:
     v.memory = 640
-    # v.cpus = 2
+    v.cpus = 2
   end
   #
   # View the documentation for the provider you're using for more

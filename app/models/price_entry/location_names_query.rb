@@ -9,5 +9,3 @@ module PriceEntry
     end
   end
 end
-
-DB.create_view(:location_names, DB[:price_entries].distinct.select(:location), temp: true)
