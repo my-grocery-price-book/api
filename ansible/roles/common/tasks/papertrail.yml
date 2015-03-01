@@ -1,0 +1,4 @@
+---
+- name: setup papertrail
+  copy: src=etc/rsyslog.conf dest=/etc/rsyslog.conf
+  notify: restarting rsyslog
