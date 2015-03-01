@@ -26,7 +26,7 @@
 ```
   vagrant ssh
   cd /vagrant
-  bundle exec cap production deploy  # can also do 'bin/cap development deploy' to deploy to vagrant
+  bundle exec cap production deploy  # can also do 'bundle exec cap development deploy' to deploy to vagrant
 ```
 
 # Conventions

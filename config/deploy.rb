@@ -6,7 +6,7 @@ set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
 
 # config/deploy.rb
 set :rbenv_type, :system # or :system, depends on your rbenv setup
-set :rbenv_ruby, 'jruby-9.0.0.0-pre1'
+set :rbenv_ruby, '2.2.0'
 
 set :rbenv_prefix,
     "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
