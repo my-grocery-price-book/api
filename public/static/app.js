@@ -2,7 +2,7 @@ function update_entries() {
   $.ajax({url: "/entries.json"}).done(function (entries) {
     $('#entries').empty();
     $.each(entries, function( _i, entry ) {
-      var content = '<b>' + entry.generic_name + '(' + entry.quanity_unit + ')</b>';
+      var content = '<b>' + entry.name + '(' + entry.quanity_unit + ')</b>';
       content += '<table class="table">';
       content += '<thead>';
       content += "<td>Date on</td>";

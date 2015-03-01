@@ -11,7 +11,7 @@
   vagrant ssh
   cd /vagrant
   bundle install --path vendor/bundle
-  bundle exec shotgun -o 0.0.0.0 -s webrick # open browser and visit http://localhost:9191 or through ngnix http://localhost:8181
+  bundle exec shotgun -o 0.0.0.0 -s webrick # open browser and visit http://192.168.33.10:9393
 ```
 
 # Running Tests
