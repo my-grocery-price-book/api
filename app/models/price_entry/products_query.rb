@@ -10,9 +10,10 @@ module PriceEntry
 
     def execute
       DB[:products].limit(@limit).map do |product|
-        filtered_prices = DB[:price_entries].filter(name: product[:name], quanity_unit: product[:quanity_unit])
+        filtered_prices = DB[:price_entries].filter(generic_name: product[:generic_name],
+                                                    quanity_unit: product[:quanity_unit])
         prices = filtered_prices.limit(3).map { |p| p.tap { |d| d.delete(:id) } }
-        { name: product[:name],
+        { generic_name: product[:generic_name],
           quanity_unit: product[:quanity_unit],
           prices: prices }
       end

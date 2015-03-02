@@ -3,7 +3,7 @@ var stores = new Bloodhound({
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   limit: 100,
   prefetch: {
-    ttl: 1,
+    ttl: 60,
     // url points to a json file that contains an array of country names, see
     // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
     url: '/store_names.json',
@@ -34,10 +34,10 @@ var products = new Bloodhound({
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   limit: 100,
   prefetch: {
-    ttl: 1,
+    ttl: 60,
     // url points to a json file that contains an array of country names, see
     // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
-    url: '/product_names.json',
+    url: '/product_generic_names.json',
     // the json file contains an array of strings, but the Bloodhound
     // suggestion engine expects JavaScript objects so this converts all of
     // those strings
@@ -65,7 +65,7 @@ var units = new Bloodhound({
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   limit: 100,
   prefetch: {
-    ttl: 1,
+    ttl: 60,
     // url points to a json file that contains an array of country names, see
     // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
     url: '/unit_names.json',
@@ -96,10 +96,10 @@ var brands = new Bloodhound({
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   limit: 100,
   prefetch: {
-    ttl: 1,
+    ttl: 60,
     // url points to a json file that contains an array of country names, see
     // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
-    url: '/brand_names.json',
+    url: '/product_brand_names.json',
     // the json file contains an array of strings, but the Bloodhound
     // suggestion engine expects JavaScript objects so this converts all of
     // those strings
@@ -114,8 +114,8 @@ brands.initialize();
 
 // passing in `null` for the `options` arguments will result in the default
 // options being used
-$('input[name="brand"]').typeahead(null, {
-  name: 'brand',
+$('input[name="product_brand_name"]').typeahead(null, {
+  name: 'product_brand_name',
   displayKey: 'name',
   // `ttAdapter` wraps the suggestion engine in an adapter that
   // is compatible with the typeahead jQuery plugin
@@ -127,7 +127,7 @@ var locations = new Bloodhound({
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   limit: 100,
   prefetch: {
-    ttl: 1,
+    ttl: 60,
     // url points to a json file that contains an array of country names, see
     // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
     url: '/location_names.json',

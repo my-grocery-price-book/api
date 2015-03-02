@@ -2,13 +2,13 @@ function update_entries() {
   $.ajax({url: "/entries.json"}).done(function (entries) {
     $('#entries').empty();
     $.each(entries, function( _i, entry ) {
-      var content = '<b>' + entry.name + '(' + entry.quanity_unit + ')</b>';
+      var content = '<b>' + entry.generic_name + '(' + entry.quanity_unit + ')</b>';
       content += '<table class="table">';
       content += '<thead>';
       content += "<td>Date on</td>";
+      content += "<td>Brand Name</td>";
       content += "<td>Store</td>";
       content += "<td>Location</td>";
-      content += "<td>Brand</td>";
       content += "<td>Quanity</td>";
       content += "<td>PP</td>";
       content += '</thead>';
@@ -17,9 +17,9 @@ function update_entries() {
 
       $.each(entry.prices, function( _j, price ) {
         var new_row = "<td>" + price.date_on + "</td>";
+        new_row += "<td>" + price.product_brand_name + "</td>";
         new_row += "<td>" + price.store + "</td>";
         new_row += "<td>" + price.location + "</td>";
-        new_row += "<td>" + price.brand + "</td>";
         new_row += "<td>" + price.quanity + "</td>";
         new_row += "<td>" + (price.total_price / price.quanity) + "</td>";
         content += '<tr>' + new_row + '</tr>';

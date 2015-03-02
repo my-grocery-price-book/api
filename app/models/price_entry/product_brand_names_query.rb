@@ -3,9 +3,9 @@ require './config/enviroment'
 
 module PriceEntry
   # gets all the uniq brand names
-  class BrandNamesQuery
+  class ProductBrandNamesQuery
     def execute
-      DB[:brand_names].map(:brand)
+      DB[:product_brand_names].map(:product_brand_name)
     end
   end
 end

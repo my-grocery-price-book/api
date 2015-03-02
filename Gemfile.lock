@@ -147,7 +147,7 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.1)
     sequel (4.19.0)
-    shotgun (0.9)
+    shotgun (0.9.1)
       rack (>= 1.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)

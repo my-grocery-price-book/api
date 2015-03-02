@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-require './app/models/price_entry/brand_names_query'
+require './app/models/price_entry/product_brand_names_query'
 require './app/models/price_entry/add_price_command'
 
-describe PriceEntry::BrandNamesQuery do
+describe PriceEntry::ProductBrandNamesQuery do
   describe 'execute' do
     before :each do
       DB[:price_entries].truncate
     end
 
     let(:default_params) do
-      { name: 'Soda', date_on: Date.today, store: 'store', location: 'location', brand: 'brand',
-        quanity: 1, quanity_unit: 'Liters', total_price: 12.9,
+      { generic_name: 'Soda', date_on: Date.today, store: 'store', location: 'location',
+        product_brand_name: 'Diet Coke', quanity: 1, quanity_unit: 'Liters', total_price: 12.9,
         expires_on: Date.today + 5, extra_info: 'extra_info' }
     end
 
@@ -20,17 +20,17 @@ describe PriceEntry::BrandNamesQuery do
     end
 
     it 'returns the brand name'  do
-      default_params[:brand] = 'World'
+      default_params[:product_brand_name] = 'World'
       PriceEntry::AddPriceCommand.new(default_params).execute
       expect(subject.execute).to eql(['World'])
     end
 
     it 'returns uniq names'  do
-      default_params[:brand] = 'Hello'
+      default_params[:product_brand_name] = 'Hello'
       PriceEntry::AddPriceCommand.new(default_params).execute
-      default_params[:brand] = 'Test'
+      default_params[:product_brand_name] = 'Test'
       PriceEntry::AddPriceCommand.new(default_params).execute
-      default_params[:brand] = 'Test'
+      default_params[:product_brand_name] = 'Test'
       PriceEntry::AddPriceCommand.new(default_params).execute
       expect(subject.execute).to eql(%w(Hello Test))
     end

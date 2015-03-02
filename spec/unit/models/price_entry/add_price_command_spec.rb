@@ -12,8 +12,8 @@ describe PriceEntry::AddPriceCommand do
 
   describe 'execute' do
     let(:default_params) do
-      { name: 'Soda', date_on: Date.today, store: 'store', location: 'location', brand: 'brand',
-        quanity: 1, quanity_unit: 'Liters', total_price: 12.9,
+      { generic_name: 'Soda', date_on: Date.today, store: 'SuperSpar', location: 'Edgemead',
+        product_brand_name: 'Diet Coke', quanity: 1, quanity_unit: 'Liters', total_price: 12.9,
         expires_on: Date.today + 5, extra_info: 'extra_info' }
     end
 

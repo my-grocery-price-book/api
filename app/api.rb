@@ -29,9 +29,9 @@ class PriceBookApi < Grape::API
     PriceEntry::LocationNamesQuery.new.execute
   end
 
-  desc 'get all the brand names'
-  get '/brand_names' do
-    PriceEntry::BrandNamesQuery.new.execute
+  desc 'get all the product brand names'
+  get '/product_brand_names' do
+    PriceEntry::ProductBrandNamesQuery.new.execute
   end
 
   desc 'get all the unit names'
@@ -40,18 +40,18 @@ class PriceBookApi < Grape::API
   end
 
   desc 'get all the product names'
-  get '/product_names' do
-    PriceEntry::ProductNamesQuery.new.execute
+  get '/product_generic_names' do
+    PriceEntry::ProductGenericNamesQuery.new.execute
   end
 
   resource :entries do
     desc 'Create a new price book entry'
     params do
       requires :generic_name, type: String, desc: 'Generic Name'
+      requires :product_brand_name, type: String, desc: 'Product brand specific name'
       optional :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'
       requires :location, type: String, desc: 'location of the store'
-      requires :brand, type: String, desc: 'brand name'
       requires :quanity, type: Float, desc: 'quanity'
       requires :quanity_unit, type: String, desc: 'what is the quanity measured in'
       requires :total_price, type: Float, desc: 'price'
@@ -59,11 +59,11 @@ class PriceBookApi < Grape::API
       optional :extra_info, type: String, desc: 'what is the quanity measured in'
     end
     post do
-      PriceEntry::AddPriceCommand.new(name: params.generic_name,
+      PriceEntry::AddPriceCommand.new(generic_name: params.generic_name,
+                                      product_brand_name: params.product_brand_name,
                                       date_on: params.date_on,
                                       store: params['store'],
                                       location: params.location,
-                                      brand: params.brand,
                                       quanity: params.quanity,
                                       quanity_unit: params.quanity_unit,
                                       total_price: params.total_price,
