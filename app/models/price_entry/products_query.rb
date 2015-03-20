@@ -4,8 +4,8 @@ require './config/enviroment'
 module PriceEntry
   # get all the products and prices
   class ProductsQuery
-    def initialize(limit: 10, search_string: nil)
-      @limit = limit
+    def initialize(limit: nil, search_string: nil)
+      @limit = limit.present? ? limit : 10
       @search_string = search_string
     end
 
