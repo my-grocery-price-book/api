@@ -56,6 +56,26 @@ describe PriceEntry::ProductsQuery do
                                                                        'Hello 8', 'Hello 9'])
     end
 
+    it '10 limit default on name with blank limit'  do
+      11.times.each do |i|
+        default_params[:generic_name] = "Hello #{i}"
+        PriceEntry::AddPriceCommand.new(default_params).execute
+      end
+      expect(subject.new(limit: "").execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3',
+                                                                       'Hello 4', 'Hello 5', 'Hello 6', 'Hello 7',
+                                                                       'Hello 8', 'Hello 9'])
+    end
+
+    it '10 limit default on name with nil limit'  do
+      11.times.each do |i|
+        default_params[:generic_name] = "Hello #{i}"
+        PriceEntry::AddPriceCommand.new(default_params).execute
+      end
+      expect(subject.new(limit: nil).execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3',
+                                                                                  'Hello 4', 'Hello 5', 'Hello 6', 'Hello 7',
+                                                                                  'Hello 8', 'Hello 9'])
+    end
+
     it '10 limit default on quanity_unit' do
       11.times.each do |i|
         default_params[:quanity_unit] = "Hello #{i}"

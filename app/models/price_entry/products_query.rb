@@ -5,7 +5,7 @@ module PriceEntry
   # get all the products and prices
   class ProductsQuery
     def initialize(limit: nil, search_string: nil)
-      @limit = limit.present? ? limit : 10
+      @limit = (limit == nil || limit == '') ?  10 : limit
       @search_string = search_string
     end
 
