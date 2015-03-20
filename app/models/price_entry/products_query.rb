@@ -12,7 +12,7 @@ module PriceEntry
     def execute
       products = DB[:products].limit(@limit);
       if @search_string
-        DB[:products].filter(name: @search_string)
+        products = products.filter(Sequel.like(:generic_name, "%#{@search_string}%"))
       end
       products.map do |product|
         filtered_prices = DB[:price_entries].filter(generic_name: product[:generic_name],
