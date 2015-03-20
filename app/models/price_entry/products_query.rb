@@ -10,10 +10,16 @@ module PriceEntry
     end
 
     def execute
-      products = DB[:products].limit(@limit);
+      products = DB[:products].limit(@limit)
       if @search_string
         products = products.filter(Sequel.like(:generic_name, "%#{@search_string}%"))
       end
+      render_products(products)
+    end
+
+    private
+
+    def render_products(products)
       products.map do |product|
         filtered_prices = DB[:price_entries].filter(generic_name: product[:generic_name],
                                                     quanity_unit: product[:quanity_unit])
