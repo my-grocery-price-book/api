@@ -57,15 +57,15 @@ describe PriceEntry::ProductsQuery do
         PriceEntry::AddPriceCommand.new(default_params).execute
       end
       expect(subject.execute.first[:prices]).to eql([{ generic_name: 'Soda', store: 'store', location: 'Hello 0',
-                                                       product_brand_name: 'Diet Coke', quanity: 1.0,
+                                                       product_brand_name: 'Diet Coke', quanity: 1.0, sets_of: 1,
                                                        quanity_unit: 'Liters', total_price: 12.9, date_on: Date.today,
                                                        expires_on: (Date.today + 5), extra_info: 'extra_info' },
                                                      { generic_name: 'Soda', store: 'store', location: 'Hello 1',
-                                                       product_brand_name: 'Diet Coke', quanity: 1.0,
+                                                       product_brand_name: 'Diet Coke', quanity: 1.0, sets_of: 1,
                                                        quanity_unit: 'Liters', total_price: 12.9, date_on: Date.today,
                                                        expires_on: (Date.today + 5), extra_info: 'extra_info' },
                                                      { generic_name: 'Soda', store: 'store', location: 'Hello 2',
-                                                       product_brand_name: 'Diet Coke', quanity: 1.0,
+                                                       product_brand_name: 'Diet Coke', quanity: 1.0, sets_of: 1,
                                                        quanity_unit: 'Liters', total_price: 12.9, date_on: Date.today,
                                                        expires_on: (Date.today + 5), extra_info: 'extra_info' }])
     end
@@ -83,15 +83,15 @@ describe PriceEntry::ProductsQuery do
       end
       expect(subject.execute.last[:prices]).to eql([{ generic_name: 'N2', store: 'store', location: 'Hello 0',
                                                       product_brand_name: 'Diet Coke', quanity: 1.0, quanity_unit: 'Q1',
-                                                      total_price: 12.9, date_on: Date.today,
+                                                      total_price: 12.9, date_on: Date.today, sets_of: 1,
                                                       expires_on: (Date.today + 5), extra_info: 'extra_info' },
                                                     { generic_name: 'N2', store: 'store', location: 'Hello 1',
                                                       product_brand_name: 'Diet Coke', quanity: 1.0, quanity_unit: 'Q1',
-                                                      total_price: 12.9, date_on: Date.today,
+                                                      total_price: 12.9, date_on: Date.today, sets_of: 1,
                                                       expires_on: (Date.today + 5), extra_info: 'extra_info' },
                                                     { generic_name: 'N2', store: 'store', location: 'Hello 2',
                                                       product_brand_name: 'Diet Coke', quanity: 1.0, quanity_unit: 'Q1',
-                                                      total_price: 12.9, date_on: Date.today,
+                                                      total_price: 12.9, date_on: Date.today, sets_of: 1,
                                                       expires_on: (Date.today + 5), extra_info: 'extra_info' }])
     end
   end

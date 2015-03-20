@@ -73,8 +73,12 @@ class PriceBookApi < Grape::API
     end
 
     desc 'get list of price book entries'
+    params do
+      optional :limit, type: String, desc: 'limit'
+      optional :search, type: String, desc: 'search string'
+    end
     get do
-      PriceEntry::ProductsQuery.new.execute
+      PriceEntry::ProductsQuery.new(limit: params.limit, search_string: params.search).execute
     end
   end
 
