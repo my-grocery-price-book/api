@@ -12,8 +12,9 @@ describe PriceEntry::AddPriceCommand do
 
   describe 'execute' do
     let(:default_params) do
-      { generic_name: 'Soda', date_on: Date.today, store: 'SuperSpar', location: 'Edgemead',
-        product_brand_name: 'Diet Coke', quanity: 1, sets_of: 2, quanity_unit: 'Liters', total_price: 12.9,
+      { date_on: Date.today, store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
+        generic_name: 'Soda', package_type: 'Cans', package_size: 340, package_unit: 'ml',
+        package_serves: 1, quanity: 6, total_price: 38.99,
         expires_on: Date.today + 5, extra_info: 'extra_info' }
     end
 
@@ -45,18 +46,18 @@ describe PriceEntry::AddPriceCommand do
       expect(last_entry[:date_on]).to eq(Date.today)
     end
 
-    it 'sets sets_of to 1 if blank' do
-      default_params[:sets_of] = ''
+    it 'sets package_serves to 1 if blank' do
+      default_params[:package_serves] = ''
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
-      expect(last_entry[:sets_of]).to eq(1)
+      expect(last_entry[:package_serves]).to eq(1)
     end
 
-    it 'sets sets_of to 1 if nil' do
-      default_params[:sets_of] = nil
+    it 'sets package_serves to 1 if nil' do
+      default_params[:package_serves] = nil
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
-      expect(last_entry[:sets_of]).to eq(1)
+      expect(last_entry[:package_serves]).to eq(1)
     end
   end
 end

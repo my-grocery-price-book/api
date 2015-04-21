@@ -5,7 +5,7 @@ module PriceEntry
   # get all the products and prices
   class ProductsQuery
     def initialize(limit: nil, search_string: nil)
-      @limit = (limit == nil || limit == '') ?  10 : limit
+      @limit = (limit.nil? || limit == '') ?  10 : limit
       @search_string = search_string
     end
 
@@ -22,10 +22,10 @@ module PriceEntry
     def render_products(products)
       products.map do |product|
         filtered_prices = DB[:price_entries].filter(generic_name: product[:generic_name],
-                                                    quanity_unit: product[:quanity_unit])
+                                                    package_unit: product[:package_unit])
         prices = filtered_prices.limit(3).map { |p| p.tap { |d| d.delete(:id) } }
         { generic_name: product[:generic_name],
-          quanity_unit: product[:quanity_unit],
+          package_unit: product[:package_unit],
           prices: prices }
       end
     end

@@ -3,7 +3,8 @@ require 'integration_helper'
 describe '/entries', type: :integration do
   it 'create new entry' do
     post '/entries', date_on: Date.today.to_s, store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
-                     generic_name: 'Soda', quanity: '2', quanity_unit: 'Liters', total_price: '13.99'
+                     generic_name: 'Soda', package_type: 'Cans', package_size: '340', package_unit: 'ml',
+                     package_serves: '1', quanity: '6', quanity_unit: 'Liters', total_price: '38.99'
     expect(last_response.status).to eq(201)
   end
 
