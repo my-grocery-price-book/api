@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_helper'
 
 require './app/models/price_entry/product_brand_names_query'
 require './spec/unit/models/price_entry/add_price_command_helper'

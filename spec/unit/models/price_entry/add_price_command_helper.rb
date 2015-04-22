@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_helper'
 
 require './app/models/price_entry/add_price_command'
 

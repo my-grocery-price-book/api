@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_helper'
 require 'rack/test'
 
 require './config/enviroment'
