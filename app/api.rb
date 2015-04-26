@@ -55,7 +55,7 @@ class PriceBookApi < Grape::API
       requires :package_type, type: String, desc: 'packaging'
       requires :package_size, type: Integer, desc: 'how much in each package_type'
       requires :package_unit, type: String, desc: 'what is the packaging measured in'
-      requires :package_serves, type: Integer, desc: 'how many each package_type can serve'
+      optional :package_serves, type: Integer, desc: 'how many each package_type can serve'
       requires :quanity, type: Float, desc: 'how many package_types'
       requires :total_price, type: Float, desc: 'price'
       optional :expires_on, type: Date, desc: 'when this price expires'
