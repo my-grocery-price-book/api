@@ -14,7 +14,7 @@ describe PriceEntry::AddPriceCommand do
     let(:default_params) do
       { date_on: Date.today, store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
         generic_name: 'Soda', package_type: 'Cans', package_size: 340, package_unit: 'ml',
-        package_serves: 1, quanity: 6, total_price: 38.99,
+        package_serves: 2, quanity: 6, total_price: 38.99,
         expires_on: Date.today + 5, extra_info: 'extra_info' }
     end
 
