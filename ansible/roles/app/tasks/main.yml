@@ -1,5 +1,0 @@
----
-- include: ruby.yml
-- include: ngnix.yml
-- include: price_book_api_user.yml
-

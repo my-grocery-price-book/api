@@ -43,7 +43,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder './tmp/var-cache-apt-archives', '/var/cache/apt/archives'
+  config.vm.synced_folder '.', '/vagrant', nfs: true
+  config.vm.synced_folder './tmp/var-cache-apt-archives', '/var/cache/apt/archives', nfs: true
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -54,8 +55,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vb.gui = true
 
     # Use VBoxManage to customize the VM. For example to change memory:
-    v.memory = 640
-    v.cpus = 2
+    v.memory = 512
+    host = RbConfig::CONFIG['host_os']
+    # Give all cpu cores on the host
+    if host =~ /darwin/
+      v.cpus = `sysctl -n hw.ncpu`.to_i
+    elsif host =~ /linux/
+      v.cpus = `nproc`.to_i
+    else # sorry Windows folks, I can't help you
+      v.cpus = 2
+    end
   end
   #
   # View the documentation for the provider you're using for more

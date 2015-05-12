@@ -4,22 +4,16 @@ lock '3.3.5'
 set :application, 'grocery_price_book_api'
 set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
 
-# config/deploy.rb
-set :rbenv_type, :system # or :system, depends on your rbenv setup
-set :rbenv_ruby, '2.2.0'
-
-set :rbenv_prefix,
-    "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w(rake gem bundle ruby)
-set :rbenv_roles, :all # default value
+set :ssh_options,  forward_agent: true
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set :deploy_to, '/home/price_book_api'
+set :deploy_to, -> { "/home/#{fetch(:user)}" }
+set :tmp_dir, -> { "/tmp/#{fetch(:user)}" }
 
 # Default value for :log_level is :debug
-set :log_level, :info
+set :log_level, :debug
 
 # Default value for :pty is false
 # set :pty, true
@@ -38,7 +32,6 @@ set :linked_dirs,
 # set :keep_releases, 5
 
 set :rack_env, 'production'
-set :puma_bind, 'tcp://0.0.0.0:9393'
 
 namespace :deploy do
   # after :restart, :clear_cache do

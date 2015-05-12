@@ -1,12 +1,12 @@
 # REQUIREMENTS
 
- * vagrant
- * anisible
+ * vagrant (at least 1.7.2)
+ * anisible (at least 1.9.0)
  
 # Development Setup with Vagrant
 ```
   vagrant up
-  ssh-add ~/.vagrant.d/insecure_private_key
+  ssh-add .vagrant/machines/default/virtualbox/private_key
   cd ansible && ansible-playbook site.yml
   vagrant ssh
   cd /vagrant
@@ -26,7 +26,7 @@
 ```
   vagrant ssh
   cd /vagrant
-  bundle exec cap production deploy  # can also do 'bundle exec cap development deploy' to deploy to vagrant
+  bundle exec cap zaf_wc deploy  # can also do 'bundle exec cap vagrant-red deploy' to deploy to vagrant
 ```
 
 # Conventions
