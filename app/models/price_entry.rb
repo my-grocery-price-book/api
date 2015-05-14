@@ -1,4 +1,5 @@
 require './app/models/price_entry/add_price_command'
+require './app/models/price_entry/prices_query'
 require './app/models/price_entry/product_brand_names_query'
 require './app/models/price_entry/location_names_query'
 require './app/models/price_entry/store_names_query'

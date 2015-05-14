@@ -100,6 +100,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    newrelic_rpm (3.12.0.288)
     parallel (1.4.0)
     parallel_tests (1.0.9)
       parallel
@@ -184,6 +185,7 @@ DEPENDENCIES
   grape
   grape-swagger
   mutant-rspec
+  newrelic_rpm
   parallel_tests
   puma
   rack-cors

@@ -9,5 +9,7 @@ use Rack::Cors do
   end
 end
 
+require 'newrelic_rpm'
+
 use Rack::CommonLogger, LOGGER
 run PriceBookApi

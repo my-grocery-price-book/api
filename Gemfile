@@ -8,6 +8,7 @@ gem 'rake'
 gem 'sequel'
 gem 'sqlite3'
 gem 'syslogger'
+gem 'newrelic_rpm'
 
 group :production do
   gem 'puma'

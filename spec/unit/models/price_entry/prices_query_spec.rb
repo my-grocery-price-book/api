@@ -41,7 +41,8 @@ describe PriceEntry::PricesQuery do
       6.times.each do |i|
         create_price_entry(generic_name: "Hello #{i}")
       end
-      expect(subject.new(limit: 5).execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3', 'Hello 4'])
+      expect(subject.new(limit: 5).execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2',
+                                                                                 'Hello 3', 'Hello 4'])
     end
 
     it '10 limit default on name'  do
