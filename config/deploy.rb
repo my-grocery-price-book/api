@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.3.5'
+lock '3.4.0'
 
 set :application, 'grocery_price_book_api'
 set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
@@ -9,8 +9,8 @@ set :ssh_options,  forward_agent: true
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set :deploy_to, -> { "/home/#{fetch(:user)}" }
-set :tmp_dir, -> { "/tmp/#{fetch(:user)}" }
+set :deploy_to, '~'
+set :tmp_dir, '~/tmp'
 
 # Default value for :log_level is :debug
 set :log_level, :debug

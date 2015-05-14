@@ -11,7 +11,7 @@
   with_file:
     - _user_keys/grant.pub
 
-- name: Set up authorized_keys for the {{remote_user}} user
+- name: Set up authorized_keys for the remote_user user
   authorized_key: user="{{remote_user}}" key="{{ item }}"
   with_file:
     - _user_keys/grant.pub

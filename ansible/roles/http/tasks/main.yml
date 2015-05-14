@@ -5,7 +5,7 @@
   apt_repository: repo='deb http://nginx.org/packages/ubuntu/ trusty nginx' state=present
 
 - name: update apt cache
-  apt: update_cache=yes cache_valid_time=86400
+  apt: update_cache=yes
 
 - name: install ngnix
   apt: name=nginx state=present
@@ -14,7 +14,7 @@
   copy: src=usr/share/nginx/html dest=/usr/share/nginx/ force=yes owner=root group=root mode=0644
 
 - name: load swagger docs in /usr/share/ngnix/html
-  template: src=usr/share/nginx/html/index.html.j2 dest=/usr/share/nginx/ force=yes owner=root group=root mode=0644
+  template: src=usr/share/nginx/html/index.html.j2 dest=/usr/share/nginx/html/index.html owner=root group=root mode=0644
 
 - name: create apps.conf
   template: src=etc/nginx/conf.d/apps.conf.j2 dest=/etc/nginx/conf.d/xx_apps.conf mode=644 owner=root # named xx_app.conf so it's after default
