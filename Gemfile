@@ -8,7 +8,8 @@ gem 'rake'
 gem 'sequel'
 gem 'sqlite3'
 gem 'syslogger'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm' # application metrics
+gem 'rollbar' # error tracking
 
 group :production do
   gem 'puma'
