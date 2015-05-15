@@ -5,3 +5,4 @@
     - shared_user_access
     - papertrail
     - laggyluke.newrelic-sysmond
+    - azavea.swapfile
