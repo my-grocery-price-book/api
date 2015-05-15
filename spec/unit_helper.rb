@@ -8,5 +8,3 @@ require 'logger'
 LOGGER = Logger.new('log/test.log')
 
 require './config/enviroment'
-
-
