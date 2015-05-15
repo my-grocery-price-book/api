@@ -8,6 +8,9 @@ set :ssh_options,  forward_agent: true
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+set :rollbar_token, 'b330dae833714676a4e8c809b11144f6'
+# set :rollbar_env, Proc.new { fetch :stage }
+# set :rollbar_role, Proc.new { :app }
 
 set :deploy_to, '~'
 set :tmp_dir, '~/tmp'
