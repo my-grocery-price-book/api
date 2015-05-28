@@ -12,7 +12,6 @@ Rollbar.configure do |config|
   config.access_token = 'b330dae833714676a4e8c809b11144f6'
   config.disable_monkey_patch = true
   config.environment = ENV['RACK_ENV']
-  config.default_logger = LOGGER
 end
 
 require 'sequel'
