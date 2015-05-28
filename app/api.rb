@@ -59,7 +59,7 @@ class PriceBookApi < Grape::API
     params do
       requires :generic_name, type: String, desc: 'Generic Name'
       requires :product_brand_name, type: String, desc: 'Product brand specific name'
-      optional :date_on, type: Date, desc: 'date of the price entry'
+      requires :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'
       requires :location, type: String, desc: 'location of the store'
       requires :package_type, type: String, desc: 'packaging'

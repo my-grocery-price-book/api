@@ -5,9 +5,8 @@ module PriceEntry
   # adds a price entry into storage
   class AddPriceCommand
     def initialize(generic_name:, store:, location:, product_brand_name:, quanity:, package_type:,
-                   package_size:, package_unit:, total_price:, date_on: nil, package_serves: nil,
+                   package_size:, package_unit:, total_price:, date_on:, package_serves: nil,
                    expires_on: nil, extra_info: nil)
-      date_on = Date.today if date_on.nil? || date_on.eql?('')
       package_serves = 1 if package_serves.nil? || package_serves.eql?('')
       @params = { generic_name: generic_name, store: store, location: location, product_brand_name: product_brand_name,
                   quanity: quanity, package_type: package_type,  package_size: package_size, package_unit: package_unit,

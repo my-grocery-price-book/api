@@ -32,20 +32,6 @@ describe PriceEntry::AddPriceCommand do
       expect(last_entry[:date_on]).to eq(Date.today - 1)
     end
 
-    it 'sets date_on to today if nil' do
-      default_params[:date_on] = nil
-      command = PriceEntry::AddPriceCommand.new(default_params)
-      command.execute
-      expect(last_entry[:date_on]).to eq(Date.today)
-    end
-
-    it 'sets date_on to today if blank' do
-      default_params[:date_on] = ''
-      command = PriceEntry::AddPriceCommand.new(default_params)
-      command.execute
-      expect(last_entry[:date_on]).to eq(Date.today)
-    end
-
     it 'sets package_serves to 1 if blank' do
       default_params[:package_serves] = ''
       command = PriceEntry::AddPriceCommand.new(default_params)
