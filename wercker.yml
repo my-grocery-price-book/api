@@ -8,7 +8,7 @@ build:
 deploy:
   steps:
     - add-ssh-key:
-        keyname: DEPLOY_KEY
+        keyname: pricebookapideploy
     - script:
         name: Capistrano
         code: bundle exec cap za deploy
