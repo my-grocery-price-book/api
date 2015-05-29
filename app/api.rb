@@ -11,7 +11,7 @@ class PriceBookApi < Grape::API
 
   rescue_from :all do |e|
     LOGGER.error(e)
-    Rollbar.error(e)
+    Rollbar.error(e, params: params)
     error_response(message: e.message)
   end
 
