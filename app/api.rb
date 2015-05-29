@@ -79,7 +79,7 @@ class PriceBookApi < Grape::API
         package_unit: params.package_unit, package_serves: params.package_serves,
         quanity: params.quanity, total_price: params.total_price,
         expires_on: params.expires_on, extra_info: params.extra_info).execute
-      {success: true}
+      { success: true }
     end
 
     desc 'get list of price book entries'
