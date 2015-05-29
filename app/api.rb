@@ -11,7 +11,7 @@ class PriceBookApi < Grape::API
 
   rescue_from :all do |e|
     LOGGER.error(e)
-    Rollbar.error(e, params: params)
+    Rollbar.error(e)
     error_response(message: e.message)
   end
 
@@ -66,7 +66,7 @@ class PriceBookApi < Grape::API
       requires :package_size, type: Integer, desc: 'how much in each package_type'
       requires :package_unit, type: String, desc: 'what is the packaging measured in'
       optional :package_serves, type: Integer, desc: 'how many each package_type can serve'
-      requires :quanity, type: Float, desc: 'how many package_types'
+      requires :quanity, type: Integer, desc: 'how many package_types'
       requires :total_price, type: Float, desc: 'price'
       optional :expires_on, type: Date, desc: 'when this price expires'
       optional :extra_info, type: String, desc: 'Additional information'
@@ -79,7 +79,7 @@ class PriceBookApi < Grape::API
         package_unit: params.package_unit, package_serves: params.package_serves,
         quanity: params.quanity, total_price: params.total_price,
         expires_on: params.expires_on, extra_info: params.extra_info).execute
-      true
+      {success: true}
     end
 
     desc 'get list of price book entries'

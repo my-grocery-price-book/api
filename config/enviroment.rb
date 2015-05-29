@@ -5,6 +5,7 @@ ENV['RACK_ENV'] ||= 'development'
 
 require 'syslogger'
 LOGGER = Syslogger.new('grocery_api', Syslog::LOG_PID, Syslog::LOG_LOCAL0) unless defined?(LOGGER)
+LOGGER.level = Logger::DEBUG
 LOGGER.info("Loading Api Enviroment for #{`whoami`}")
 
 require 'rollbar'

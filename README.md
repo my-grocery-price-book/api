@@ -26,7 +26,8 @@
 ```
   vagrant ssh
   cd /vagrant
-  bundle exec cap zaf_wc deploy  # can also do 'bundle exec cap vagrant-red deploy' to deploy to vagrant
+  bundle exec cap za deploy  # deploy south african servers
+  bundle exec cap vagrant deploy # deploy to vagrant
 ```
 
 # Conventions
