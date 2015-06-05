@@ -1,7 +1,9 @@
 # encoding: utf-8
 require 'rubygems'
 require 'bundler/setup'
+require 'dotenv'
 ENV['RACK_ENV'] ||= 'development'
+Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
 
 require 'syslogger'
 LOGGER = Syslogger.new('grocery_api', Syslog::LOG_PID, Syslog::LOG_LOCAL0) unless defined?(LOGGER)
@@ -16,7 +18,7 @@ Rollbar.configure do |config|
 end
 
 require 'sequel'
-DB = ENV['MUTANT'] ? Sequel.sqlite : Sequel.connect("sqlite://db/sqlite3/#{ENV['RACK_ENV']}_data.db")
+DB = ENV['MUTANT'] ? Sequel.sqlite : Sequel.connect(ENV['SEQUEL_CONNECT'])
 DB.loggers << LOGGER
 
 Sequel.extension :migration

@@ -13,3 +13,7 @@
 - name: update puma.rb
   template: src=_home_/shared/puma.rb.j2 dest=/home/{{item.app_user}}/shared/puma.rb mode=644 owner={{ item.app_user }} group={{ item.app_user }}
   with_items: app_domains
+
+- name: update .env.production
+  template: src=_home_/shared/.env.production.j2 dest=/home/{{item.app_user}}/shared/.env.production mode=644 owner={{ item.app_user }} group={{ item.app_user }}
+  with_items: app_domains

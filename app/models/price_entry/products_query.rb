@@ -10,7 +10,9 @@ module PriceEntry
     end
 
     def execute
-      products = DB[:products].limit(@limit).filter(Sequel.like(:generic_name, "%#{@search_string}%"))
+      products = DB[:products].limit(@limit)
+      products = products.filter(Sequel.like(:generic_name, "%#{@search_string}%"))
+      products = products.order(:generic_name, :package_unit)
       render_products(products)
     end
 

@@ -6,7 +6,8 @@ gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 gem 'sequel'
-gem 'sqlite3'
+gem 'dotenv'
+gem 'pg'
 gem 'syslogger'
 gem 'newrelic_rpm' # application metrics
 gem 'rollbar' # error tracking
@@ -30,6 +31,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'sqlite3'
   gem 'mutant-rspec'
   gem 'rack-test'
   gem 'simplecov'

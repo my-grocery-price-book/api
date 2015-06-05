@@ -22,7 +22,7 @@ set :log_level, :debug
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('db/database.yml')
+set :linked_files, fetch(:linked_files, []).push('.env.production')
 
 # Default value for linked_dirs is []
 set :linked_dirs,

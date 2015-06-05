@@ -6,13 +6,19 @@ app_domains:
     port: 9390
     domain: red.vagrant
     app_user: red
+    app_db_name: red_prices
+    app_db_password: enter123
   - upstream: green
     ip: 192.168.33.10
     port: 9391
     domain: green.vagrant
     app_user: green
+    app_db_name: green_prices
+    app_db_password: enter123
   - upstream: blue
     ip: 192.168.33.10
     port: 9392
     domain: blue.vagrant
     app_user: blue
+    app_db_name: blue_prices
+    app_db_password: enter123

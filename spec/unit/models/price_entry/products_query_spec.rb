@@ -49,9 +49,9 @@ describe PriceEntry::ProductsQuery do
       11.times.each do |i|
         create_price_entry(generic_name: "Hello #{i}")
       end
-      expect(subject.new.execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3',
-                                                                       'Hello 4', 'Hello 5', 'Hello 6', 'Hello 7',
-                                                                       'Hello 8', 'Hello 9'])
+      expect(subject.new.execute.map { |p| p[:generic_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 10', 'Hello 2',
+                                                                       'Hello 3', 'Hello 4', 'Hello 5', 'Hello 6',
+                                                                       'Hello 7', 'Hello 8'])
     end
 
     it '10 limit default on name with blank limit'  do
@@ -59,17 +59,17 @@ describe PriceEntry::ProductsQuery do
         create_price_entry(generic_name: "Hello #{i}")
       end
       generic_names = subject.new(limit: '').execute.map { |p| p[:generic_name] }
-      expect(generic_names).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3', 'Hello 4',
-                                    'Hello 5', 'Hello 6', 'Hello 7', 'Hello 8', 'Hello 9'])
+      expect(generic_names).to eql(['Hello 0', 'Hello 1', 'Hello 10', 'Hello 2', 'Hello 3', 'Hello 4',
+                                    'Hello 5', 'Hello 6', 'Hello 7', 'Hello 8'])
     end
 
     it '10 limit default on package_unit' do
       11.times.each do |i|
         create_price_entry(package_unit: "Hello #{i}")
       end
-      expect(subject.new.execute.map { |p| p[:package_unit] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3',
-                                                                       'Hello 4', 'Hello 5', 'Hello 6', 'Hello 7',
-                                                                       'Hello 8', 'Hello 9'])
+      expect(subject.new.execute.map { |p| p[:package_unit] }).to eql(['Hello 0', 'Hello 1', 'Hello 10', 'Hello 2',
+                                                                       'Hello 3', 'Hello 4', 'Hello 5', 'Hello 6',
+                                                                       'Hello 7', 'Hello 8'])
     end
 
     it '10 limit default on package_unit and name' do

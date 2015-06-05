@@ -24,7 +24,7 @@ describe PriceEntry::StoreNamesQuery do
       create_price_entry(store: 'World')
       create_price_entry(store: 'Test')
       create_price_entry(store: 'Test')
-      expect(subject.execute).to eql(%w(World Test))
+      expect(subject.execute).to eql(%w(Test World))
     end
   end
 end

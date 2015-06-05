@@ -1,5 +1,0 @@
-- hosts: http
-  remote_user: "{{remote_user}}"
-  sudo: yes
-  roles:
-    - http

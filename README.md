@@ -7,7 +7,7 @@
 ```
   vagrant up
   ssh-add .vagrant/machines/default/virtualbox/private_key
-  cd ansible && ansible-playbook site.yml
+  cd ansible && ansible-playbook -vv site.yml
   vagrant ssh
   cd /vagrant
   bundle install --path vendor/bundle
