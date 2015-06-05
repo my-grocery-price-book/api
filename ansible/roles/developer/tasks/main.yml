@@ -11,9 +11,10 @@
     - libsqlite3-dev
 
 - name: bundle install
-  command:  bundle install --clean --jobs 2 --path vendor/bundle
+  command: bundle install --clean --jobs 2 --path vendor/bundle
   args:
     chdir: /vagrant
+    creates: /vagrant/vendor/bundle
 
 - name: create dev database
   postgresql_db: name=dev_db encoding='UTF-8'
@@ -34,3 +35,15 @@
   postgresql_user: db=test_db  name=test_db password=test_db role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres
+
+- name: add red.app to /etc/hosts
+  lineinfile: dest=/etc/hosts line='127.0.0.1 red.app' owner=root group=root mode=0644
+  sudo: yes
+
+- name: add green.app to /etc/hosts
+  lineinfile: dest=/etc/hosts line='127.0.0.1 green.app' owner=root group=root mode=0644
+  sudo: yes
+
+- name: add blue.app to /etc/hosts
+  lineinfile: dest=/etc/hosts line='127.0.0.1 blue.app' owner=root group=root mode=0644
+  sudo: yes

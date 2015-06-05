@@ -92,5 +92,5 @@ class PriceBookApi < Grape::API
     end
   end
 
-  add_swagger_documentation
+  add_swagger_documentation hide_format: true
 end
