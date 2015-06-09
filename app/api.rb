@@ -7,7 +7,7 @@ require './app/models/price_entry'
 
 # main grape class
 class PriceBookApi < Grape::API
-  default_format :json
+  format :json
 
   rescue_from :all do |e|
     LOGGER.error(e)
@@ -57,8 +57,9 @@ class PriceBookApi < Grape::API
   resource :entries do
     desc 'Create a new price book entry'
     params do
-      requires :generic_name, type: String, desc: 'Generic Name'
       requires :product_brand_name, type: String, desc: 'Product brand specific name'
+      requires :generic_name, type: String, desc: 'Generic Name'
+      requires :category, type: String, desc: 'Category'
       requires :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'
       requires :location, type: String, desc: 'location of the store'
@@ -77,7 +78,7 @@ class PriceBookApi < Grape::API
         date_on: params.date_on, store: params['store'], location: params.location,
         package_type: params.package_type, package_size: params.package_size,
         package_unit: params.package_unit, package_serves: params.package_serves,
-        quanity: params.quanity, total_price: params.total_price,
+        quanity: params.quanity, total_price: params.total_price, category: params.category,
         expires_on: params.expires_on, extra_info: params.extra_info).execute
       { success: true }
     end

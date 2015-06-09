@@ -9,7 +9,7 @@ def app
 end
 
 def price_params(override_params = {})
-  { store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
+  { store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke', category: 'Drinks',
     generic_name: 'Soda', package_type: 'Cans', package_size: '340', date_on: Date.today.to_s,
     package_unit: 'ml', quanity: '6', total_price: '38.99' }.merge(override_params)
 end
