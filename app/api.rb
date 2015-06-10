@@ -63,10 +63,9 @@ class PriceBookApi < Grape::API
       requires :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'
       requires :location, type: String, desc: 'location of the store'
-      requires :package_type, type: String, desc: 'packaging'
-      requires :package_size, type: Integer, desc: 'how much in each package_type'
+      requires :package_size, type: Integer, desc: 'how much of each package_unit'
       requires :package_unit, type: String, desc: 'what is the packaging measured in'
-      requires :quanity, type: Integer, desc: 'how many package_types'
+      requires :quanity, type: Integer, desc: 'how many of each package'
       requires :total_price, type: Float, desc: 'price'
       optional :expires_on, type: Date, desc: 'when this price expires'
       optional :extra_info, type: String, desc: 'Additional information'
@@ -75,9 +74,9 @@ class PriceBookApi < Grape::API
       PriceEntry::AddPriceCommand.new(
         generic_name: params.generic_name, product_brand_name: params.product_brand_name,
         date_on: params.date_on, store: params['store'], location: params.location,
-        package_type: params.package_type, package_size: params.package_size,
-        package_unit: params.package_unit, quanity: params.quanity, total_price: params.total_price,
-        category: params.category, expires_on: params.expires_on, extra_info: params.extra_info).execute
+        package_size: params.package_size, package_unit: params.package_unit, quanity: params.quanity,
+        total_price: params.total_price, category: params.category, expires_on: params.expires_on,
+        extra_info: params.extra_info).execute
       { success: true }
     end
 

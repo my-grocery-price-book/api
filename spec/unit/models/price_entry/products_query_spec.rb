@@ -90,20 +90,17 @@ describe PriceEntry::ProductsQuery do
                                                            location: 'Hello 0', product_brand_name: 'Coke',
                                                            quanity: 6.0, package_unit: 'ml', total_price: 38.99,
                                                            date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_type: 'Cans', package_size: 340,
-                                                           category: 'Drinks' },
+                                                           package_size: 340, category: 'Drinks' },
                                                          { generic_name: 'Soda', store: 'Pick n Pay',
                                                            location: 'Hello 1', product_brand_name: 'Coke',
                                                            quanity: 6.0, package_unit: 'ml', total_price: 38.99,
                                                            date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_type: 'Cans', package_size: 340,
-                                                           category: 'Drinks' },
+                                                           package_size: 340, category: 'Drinks' },
                                                          { generic_name: 'Soda', store: 'Pick n Pay',
                                                            location: 'Hello 2', product_brand_name: 'Coke',
                                                            quanity: 6.0, package_unit: 'ml', total_price: 38.99,
                                                            date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_type: 'Cans', package_size: 340,
-                                                           category: 'Drinks' }
+                                                           package_size: 340, category: 'Drinks' }
                                                         ])
     end
 
@@ -119,20 +116,17 @@ describe PriceEntry::ProductsQuery do
                                                           location: 'Hello 2', product_brand_name: 'Coke',
                                                           quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_type: 'Cans', package_size: 340,
-                                                          category: 'Drinks' },
+                                                          package_size: 340, category: 'Drinks' },
                                                         { generic_name: 'N2', store: 'Pick n Pay',
                                                           location: 'Hello 2', product_brand_name: 'Coke',
                                                           quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_type: 'Cans', package_size: 340,
-                                                          category: 'Drinks' },
+                                                          package_size: 340, category: 'Drinks' },
                                                         { generic_name: 'N2', store: 'Pick n Pay',
                                                           location: 'Hello 2', product_brand_name: 'Coke',
                                                           quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_type: 'Cans', package_size: 340,
-                                                          category: 'Drinks' }])
+                                                          package_size: 340, category: 'Drinks' }])
     end
   end
 end
