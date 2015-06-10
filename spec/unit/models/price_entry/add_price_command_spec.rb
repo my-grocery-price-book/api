@@ -14,8 +14,7 @@ describe PriceEntry::AddPriceCommand do
     let(:default_params) do
       { date_on: Date.today, store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
         generic_name: 'Soda', package_type: 'Cans', package_size: 340, package_unit: 'ml', category: 'Drinks',
-        package_serves: 2, quanity: 6, total_price: 38.99,
-        expires_on: Date.today + 5, extra_info: 'extra_info' }
+        quanity: 6, total_price: 38.99, expires_on: Date.today + 5, extra_info: 'extra_info' }
     end
 
     it 'saves the entry to storage'  do
@@ -30,20 +29,6 @@ describe PriceEntry::AddPriceCommand do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       expect(last_entry[:date_on]).to eq(Date.today - 1)
-    end
-
-    it 'sets package_serves to 1 if blank' do
-      default_params[:package_serves] = ''
-      command = PriceEntry::AddPriceCommand.new(default_params)
-      command.execute
-      expect(last_entry[:package_serves]).to eq(1)
-    end
-
-    it 'sets package_serves to 1 if nil' do
-      default_params[:package_serves] = nil
-      command = PriceEntry::AddPriceCommand.new(default_params)
-      command.execute
-      expect(last_entry[:package_serves]).to eq(1)
     end
   end
 end
