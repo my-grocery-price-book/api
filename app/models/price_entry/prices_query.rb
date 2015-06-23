@@ -10,7 +10,7 @@ module PriceEntry
     end
 
     def execute
-      DB[:price_entries].limit(@limit).filter(Sequel.like(:generic_name, "%#{@search_string}%")).to_a
+      DB[:price_entries].limit(@limit).filter(Sequel.like(:product_brand_name, "%#{@search_string}%")).to_a
     end
   end
 end

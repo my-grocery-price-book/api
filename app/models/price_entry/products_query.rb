@@ -11,8 +11,8 @@ module PriceEntry
 
     def execute
       products = DB[:products].limit(@limit)
-      products = products.filter(Sequel.like(:generic_name, "%#{@search_string}%"))
-      products = products.order(:generic_name, :package_unit)
+      products = products.filter(Sequel.like(:product_brand_name, "%#{@search_string}%"))
+      products = products.order(:product_brand_name, :package_unit)
       render_products(products)
     end
 
@@ -20,10 +20,10 @@ module PriceEntry
 
     def render_products(products)
       products.map do |product|
-        filtered_prices = DB[:price_entries].filter(generic_name: product[:generic_name],
+        filtered_prices = DB[:price_entries].filter(product_brand_name: product[:product_brand_name],
                                                     package_unit: product[:package_unit])
         prices = filtered_prices.limit(3).map { |p| p.tap { |d| d.delete(:id) } }
-        { generic_name: product[:generic_name],
+        { product_brand_name: product[:product_brand_name],
           package_unit: product[:package_unit],
           prices: prices }
       end
