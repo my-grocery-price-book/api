@@ -38,3 +38,20 @@
 * We aim to please rubocop  (`rake rubocop:auto_correct` helps with this)
 * Integration spec files are named after the end point they hit
 * Integration specs are black box specs
+
+# ZA Provisioning and Deployment
+
+provisioning: Your key needs to be added to the servers and you need the vault_pass.txt
+
+```
+  cd ansible
+  ansible-playbook -vv site.yml -i hosts/za --vault-password-file vault_pass.txt
+```
+
+deploying
+
+```
+  vagrant ssh
+  cd project
+  bin/cap za deploy
+```
