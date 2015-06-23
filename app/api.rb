@@ -58,7 +58,7 @@ class PriceBookApi < Grape::API
     desc 'Create a new price book entry'
     params do
       requires :product_brand_name, type: String, desc: 'Product brand specific name'
-      requires :generic_name, type: String, desc: 'Generic Name'
+      optional :generic_name, type: String, desc: 'Generic Name'
       requires :category, type: String, desc: 'Category'
       requires :date_on, type: Date, desc: 'date of the price entry'
       requires :store, type: String, desc: 'Name of the store'

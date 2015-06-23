@@ -30,5 +30,12 @@ describe PriceEntry::AddPriceCommand do
       command.execute
       expect(last_entry[:date_on]).to eq(Date.today - 1)
     end
+
+    it 'generic_name is optional' do
+      default_params.delete(:generic_name)
+      command = PriceEntry::AddPriceCommand.new(default_params)
+      command.execute
+      expect(last_entry[:generic_name]).to be_nil
+    end
   end
 end
