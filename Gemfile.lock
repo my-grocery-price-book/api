@@ -45,6 +45,8 @@ GEM
     docile (1.1.5)
     dotenv (2.0.1)
     equalizer (0.0.11)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     grape (0.11.0)
       activesupport
       builder
@@ -80,6 +82,7 @@ GEM
       procto (~> 0.0.2)
     multi_json (1.11.0)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     mutant (0.7.7)
       abstract_type (~> 0.0.7)
       adamantium (~> 0.2.0)
@@ -159,6 +162,11 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    staccato (0.3.1)
+    staccato-rack (0.4.3)
+      faraday
+      rack
+      staccato (>= 0.3.0)
     syslogger (1.6.0)
     thread_safe (0.3.5)
     thread_safe (0.3.5-java)
@@ -204,6 +212,7 @@ DEPENDENCIES
   shotgun
   simplecov
   sqlite3
+  staccato-rack
   syslogger
 
 BUNDLED WITH
