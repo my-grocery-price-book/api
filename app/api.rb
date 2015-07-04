@@ -20,6 +20,11 @@ class PriceBookApi < Grape::API
     fail 'Test Failure'
   end
 
+  desc 'ping'
+  get '/ping' do
+    'pong'
+  end
+
   desc 'get all the stores'
   get '/store_names' do
     PriceEntry::StoreNamesQuery.new.execute
