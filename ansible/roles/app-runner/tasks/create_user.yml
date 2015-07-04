@@ -3,7 +3,7 @@
   with_items: app_domains
 
 - name: Set up authorized_keys for the app users
-  authorized_key: user={{ item.app_user }} key="{{ app_key }}"
+  authorized_key: user={{ item.app_user }} key="{{ lookup('file', '_deploy_keys/all') }}" exclusive=true
   with_items: app_domains
 
 - name: create shared directory
