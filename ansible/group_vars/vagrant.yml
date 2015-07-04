@@ -8,6 +8,7 @@ app_domains:
     app_user: red
     app_db_name: red_prices
     app_db_password: enter123
+    app_db_server_ip: localhost
   - upstream: green
     ip: 192.168.33.10
     port: 9391
@@ -15,6 +16,7 @@ app_domains:
     app_user: green
     app_db_name: green_prices
     app_db_password: enter123
+    app_db_server_ip: localhost
   - upstream: blue
     ip: 192.168.33.10
     port: 9392
@@ -22,3 +24,4 @@ app_domains:
     app_user: blue
     app_db_name: blue_prices
     app_db_password: enter123
+    app_db_server_ip: localhost
