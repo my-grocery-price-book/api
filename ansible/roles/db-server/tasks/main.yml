@@ -31,7 +31,7 @@
   with_items: app_domains
   notify: restarting postgresql
 
-- name: create shared directory
+- name: update postgresql.conf
   copy: src=etc/postgresql/9.3/main/postgresql.conf dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0644
   notify: restarting postgresql
 
