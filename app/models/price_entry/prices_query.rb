@@ -5,7 +5,7 @@ module PriceEntry
   # get all the prices
   class PricesQuery
     def initialize(limit: nil, search_string: nil)
-      @limit = (limit.nil? || limit.eql?('')) ?  10 : limit
+      @limit = (limit.nil? || limit.eql?('')) ? 10 : limit
       @search_string = search_string
     end
 
