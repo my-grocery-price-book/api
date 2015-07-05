@@ -1,0 +1,19 @@
+- name: create dev database
+  postgresql_db: name=dev_db encoding='UTF-8'
+  sudo: yes
+  sudo_user: postgres
+
+- name: create dev database user
+  postgresql_user: db=dev_db  name=dev_db password=dev_db role_attr_flags=CREATEDB,NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres
+
+- name: create test database
+  postgresql_db: name=test_db encoding='UTF-8'
+  sudo: yes
+  sudo_user: postgres
+
+- name: create test database user
+  postgresql_user: db=test_db  name=test_db password=test_db role_attr_flags=CREATEDB,NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres

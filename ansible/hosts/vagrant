@@ -2,15 +2,13 @@
 192.168.33.10 remote_user=vagrant
 
 [db-server]
-192.168.33.10 remote_user=vagrant
+192.168.33.11 remote_user=vagrant
 
 [http]
 192.168.33.10 remote_user=vagrant
 
-[developer]
-192.168.33.10 remote_user=vagrant
-
 [vagrant:children]
 app-runner
+db-server
 http
 

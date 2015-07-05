@@ -16,3 +16,6 @@
 - name: create apps.conf
   template: src=etc/nginx/conf.d/apps.conf.j2 dest=/etc/nginx/conf.d/xx_apps.conf mode=644 owner=root # named xx_app.conf so it's after default
   notify: restarting ngnix
+
+- include: development.yml
+  when: development is defined

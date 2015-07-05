@@ -6,7 +6,8 @@
 # Development Setup with Vagrant
 ```
   vagrant up
-  ssh-add .vagrant/machines/default/virtualbox/private_key
+  ssh-add .vagrant/machines/app/virtualbox/private_key
+  ssh-add .vagrant/machines/db/virtualbox/private_key
   cd ansible && ansible-playbook -vv site.yml
   vagrant ssh
   cd /vagrant

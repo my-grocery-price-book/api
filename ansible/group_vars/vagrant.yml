@@ -1,6 +1,8 @@
 swapfile_size: 50MB # for azavea.swapfile
 app_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA24/jS/94wfUHVfEvq1ZtIHntAy13Dc/7h/BTJcgpD6p5yTYaG2UXwvdp2KQMsqdS7Y6sFBx4sDNFzKySmOe7KrLKCO0hgX/HXSUzlIwfWtFsqNsepe6BanauFr6MPNmStp6yjQt+TiqtYpIP1PzHkMwOhE4qFaernjNJSNhXmFRzgdZ17soRWdPqzekJFKqXZ2uF48WfOeXoTzPhH4QhN/hl/b39LXj5iuZobHaergyq7vWq4WwbYxOyYRPQ1rVEcYMeO7rZxasX6/CQRuvUQk11Hvqrhck1Ekc+aaTSVrdN2CABS0Tnx+tzOJrdNsEvx2NoSOfAmejxQ+pV9FMf4w== grant.speelman@unboxedconsulting.com
 ga_tracking_id: ""
+db_server_ip: 192.168.33.11
+development: true
 app_domains:
   - upstream: red
     ip: 192.168.33.10
@@ -9,7 +11,6 @@ app_domains:
     app_user: red
     app_db_name: red_prices
     app_db_password: enter123
-    app_db_server_ip: localhost
   - upstream: green
     ip: 192.168.33.10
     port: 9391
@@ -17,7 +18,6 @@ app_domains:
     app_user: green
     app_db_name: green_prices
     app_db_password: enter123
-    app_db_server_ip: localhost
   - upstream: blue
     ip: 192.168.33.10
     port: 9392
@@ -25,4 +25,3 @@ app_domains:
     app_user: blue
     app_db_name: blue_prices
     app_db_password: enter123
-    app_db_server_ip: localhost

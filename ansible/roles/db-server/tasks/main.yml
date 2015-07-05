@@ -19,7 +19,21 @@
   with_items: app_domains
 
 - name: create database user
-  postgresql_user: db={{item.app_db_name}}  name={{ item.app_user }} password={{item.app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
+  postgresql_user: db={{item.app_db_name}} name={{ item.app_user }} password={{item.app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres
   with_items: app_domains
+
+- name: add app ip addresses to pg_hba.conf
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf line="host all all {{ item.ip }}/24 trust"
+  sudo: yes
+  sudo_user: postgres
+  with_items: app_domains
+  notify: restarting postgresql
+
+- name: create shared directory
+  copy: src=etc/postgresql/9.3/main/postgresql.conf dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0644
+  notify: restarting postgresql
+
+- include: development.yml
+  when: development is defined
