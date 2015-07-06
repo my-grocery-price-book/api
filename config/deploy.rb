@@ -1,6 +1,17 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
+# hack to allow set :tmp_dir, '~/tmp'
+require 'net/scp'
+module Net
+  class SCP
+    def upload!(local, remote, options={}, &progress)
+      remote = remote.gsub('~/','') if remote.start_with?('~/')
+      upload(local, remote, options, &progress).wait
+    end
+  end
+end
+
 set :application, 'grocery_price_book_api'
 set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
 
