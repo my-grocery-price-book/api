@@ -1,12 +1,13 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-# hack to allow set :tmp_dir, '~/tmp'
+# HACK: to allow set :tmp_dir, '~/tmp'
 require 'net/scp'
 module Net
+  # reopening SCP class
   class SCP
-    def upload!(local, remote, options={}, &progress)
-      remote = remote.gsub('~/','') if remote.start_with?('~/')
+    def upload!(local, remote, options = {}, &progress)
+      remote = remote.gsub('~/', '') if remote.start_with?('~/')
       upload(local, remote, options, &progress).wait
     end
   end
