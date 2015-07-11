@@ -7,7 +7,7 @@ require './app/models/price_entry'
 
 # main grape class
 class PriceBookApi < Grape::API
-  format :json
+  default_format :json
 
   rescue_from :all do |e|
     LOGGER.error(e)
