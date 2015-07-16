@@ -36,8 +36,11 @@ class PriceBookApi < Grape::API
   end
 
   desc 'get all the product brand names'
+  params do
+    optional :term, type: String, desc: 'search string'
+  end
   get '/product_brand_names' do
-    PriceEntry::ProductBrandNamesQuery.new.execute
+    PriceEntry::ProductBrandNamesQuery.new(search_text: params.term).execute
   end
 
   desc 'get all the unit names'

@@ -4,8 +4,13 @@ require './config/enviroment'
 module PriceEntry
   # gets all the uniq brand names
   class ProductBrandNamesQuery
+    def initialize(search_text:)
+      @products = DB[:product_brand_names].limit(20)
+      @products = @products.filter(Sequel.ilike(:product_brand_name, "%#{search_text}%"))
+    end
+
     def execute
-      DB[:product_brand_names].map(:product_brand_name)
+      @products.map(:product_brand_name)
     end
   end
 end
