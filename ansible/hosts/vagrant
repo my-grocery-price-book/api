@@ -1,11 +1,11 @@
 [app-runner]
-192.168.33.10 remote_user=vagrant
+192.168.30.17 remote_user=vagrant
 
 [db-server]
-192.168.33.11 remote_user=vagrant
+192.168.30.16 remote_user=vagrant
 
 [http]
-192.168.33.10 remote_user=vagrant
+192.168.30.17 remote_user=vagrant
 
 [vagrant:children]
 app-runner
