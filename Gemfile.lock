@@ -191,6 +191,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   capistrano (~> 3.3)
   capistrano-bundler
   capistrano3-puma
@@ -216,4 +217,4 @@ DEPENDENCIES
   syslogger
 
 BUNDLED WITH
-   1.10.3
+   1.10.5

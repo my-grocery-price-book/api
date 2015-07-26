@@ -1,4 +1,5 @@
 require 'unit_helper'
+require 'active_support/core_ext/hash/except'
 
 require './app/models/price_entry/add_price_command'
 
@@ -20,8 +21,15 @@ describe PriceEntry::AddPriceCommand do
     it 'saves the entry to storage'  do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
-      entry_values_without_id = last_entry.tap { |e| e.delete(:id) }
-      expect(entry_values_without_id).to eq(default_params)
+      entry_values = last_entry.except(:id, :price_per_package_unit)
+      expect(entry_values).to eq(default_params)
+    end
+
+    it 'sets price_per_package_unit'  do
+      command = PriceEntry::AddPriceCommand.new(default_params)
+      command.execute
+      price_per_package_unit = last_entry[:price_per_package_unit]
+      expect(price_per_package_unit).to be_within(0.0001).of(0.1146764)
     end
 
     it 'sets date_on to past' do
@@ -29,13 +37,6 @@ describe PriceEntry::AddPriceCommand do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       expect(last_entry[:date_on]).to eq(Date.today - 1)
-    end
-
-    it 'generic_name is optional' do
-      default_params.delete(:generic_name)
-      command = PriceEntry::AddPriceCommand.new(default_params)
-      command.execute
-      expect(last_entry[:generic_name]).to be_nil
     end
   end
 end

@@ -12,122 +12,215 @@ describe PriceEntry::ProductsQuery do
       truncate_price_entries
     end
 
+    def default_price_attributes(new_params)
+      { generic_name: 'Soda', store: 'Spar', location: 'Goodwood',
+        product_brand_name: 'Coke', quanity: 1.0, package_unit: 'L', total_price: 10.0,
+        date_on: Date.today, expires_on: nil, extra_info: nil, package_size: 2,
+        category: 'Drinks' }.merge(new_params)
+    end
+
     it 'empty array by default'  do
       expect(subject.new.execute).to eql([])
     end
 
-    it 'search text end of string'  do
-      6.times.each do |i|
-        create_price_entry(product_brand_name: "Hello#{i * 2}")
-      end
-      expect(subject.new(search_string: '0').execute.map { |p| p[:product_brand_name] }).to eql(%w(Hello0 Hello10))
+    it 'returns a single price_entry' do
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today)
+      create_price_entry(price_params)
+      price_params.merge!(price_per_package_unit: 5.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: price_params,
+        cheapest_last_month: price_params,
+        cheapest_last_year: price_params
+      ])
     end
 
-    it 'search text start of string'  do
-      6.times.each do |i|
-        create_price_entry(product_brand_name: "#{i * 2}Hello")
-      end
-      expect(subject.new(search_string: '0Hello').execute.map { |p| p[:product_brand_name] }).to eql(%w(0Hello 10Hello))
+    it 'returns best price_per_package_unit' do
+      price_params1 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 20.0,
+                                               date_on: Date.today)
+      create_price_entry(price_params1)
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today)
+      create_price_entry(price_params)
+      price_params.merge!(price_per_package_unit: 5.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: price_params,
+        cheapest_last_month: price_params,
+        cheapest_last_year: price_params
+      ])
     end
 
-    it 'search text inside of string'  do
-      6.times.each do |i|
-        create_price_entry(product_brand_name: "Hel#{i * 2}lo")
-      end
-      expect(subject.new(search_string: '0l').execute.map { |p| p[:product_brand_name] }).to eql(%w(Hel0lo Hel10lo))
+    it 'returns best price_per_package_unit for last week' do
+      price_params2 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 22.0,
+                                               date_on: Date.today)
+      create_price_entry(price_params2)
+      price_params1 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 20.0,
+                                               date_on: Date.today - 6)
+      create_price_entry(price_params1)
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today - 7)
+      create_price_entry(price_params)
+      price_params1.merge!(price_per_package_unit: 10.0)
+      price_params.merge!(price_per_package_unit: 5.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: price_params1,
+        cheapest_last_month: price_params,
+        cheapest_last_year: price_params
+      ])
     end
 
-    it '5 limit'  do
-      6.times.each do |i|
-        create_price_entry(product_brand_name: "Hello #{i}")
-      end
-      expect(subject.new(limit: 5).execute.map { |p| p[:product_brand_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2',
-                                                                                       'Hello 3', 'Hello 4'])
+    it 'returns best price_per_package_unit for last month' do
+      price_params2 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 22.0,
+                                               date_on: Date.today)
+      create_price_entry(price_params2)
+      price_params1 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 20.0,
+                                               date_on: Date.today - 29)
+      create_price_entry(price_params1)
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today - 30)
+      create_price_entry(price_params)
+      price_params2.merge!(price_per_package_unit: 11.0)
+      price_params1.merge!(price_per_package_unit: 10.0)
+      price_params.merge!(price_per_package_unit: 5.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: price_params2,
+        cheapest_last_month: price_params1,
+        cheapest_last_year: price_params
+      ])
     end
 
-    it '10 limit default on name'  do
-      11.times.each do |i|
-        create_price_entry(product_brand_name: "Hello #{i}")
-      end
-      expect(subject.new.execute.map { |p| p[:product_brand_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 10',
-                                                                             'Hello 2', 'Hello 3', 'Hello 4',
-                                                                             'Hello 5', 'Hello 6', 'Hello 7',
-                                                                             'Hello 8'])
+    it 'returns best price_per_package_unit for last year' do
+      price_params2 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 22.0,
+                                               date_on: Date.today)
+      create_price_entry(price_params2)
+      price_params1 = default_price_attributes(product_brand_name: 'Coke',
+                                               package_unit: 'L', package_size: 2,
+                                               quanity: 1.0, total_price: 20.0,
+                                               date_on: Date.today - 364)
+      create_price_entry(price_params1)
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today - 365)
+      create_price_entry(price_params)
+      price_params2.merge!(price_per_package_unit: 11.0)
+      price_params1.merge!(price_per_package_unit: 10.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: price_params2,
+        cheapest_last_month: price_params2,
+        cheapest_last_year: price_params1
+      ])
     end
 
-    it '10 limit default on name with blank limit'  do
-      11.times.each do |i|
-        create_price_entry(product_brand_name: "Hello #{i}")
-      end
-      product_brand_names = subject.new(limit: '').execute.map { |p| p[:product_brand_name] }
-      expect(product_brand_names).to eql(['Hello 0', 'Hello 1', 'Hello 10', 'Hello 2', 'Hello 3', 'Hello 4',
-                                          'Hello 5', 'Hello 6', 'Hello 7', 'Hello 8'])
+    it 'returns a multiple price_entries' do
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today)
+      create_price_entry(price_params)
+      price_params.merge!(price_per_package_unit: 5.0)
+      price_params1 = default_price_attributes(product_brand_name: 'Bread',
+                                               package_unit: 'Grams', package_size: 700,
+                                               quanity: 1.0, total_price: 7.0,
+                                               date_on: Date.today)
+      create_price_entry(price_params1)
+      price_params1.merge!(price_per_package_unit: 0.01)
+      results = subject.new.execute
+      expect(results).to eql([
+        {
+          product: 'Bread', package_unit: 'Grams',
+          cheapest_last_week: price_params1,
+          cheapest_last_month: price_params1,
+          cheapest_last_year: price_params1 },
+        { product: 'Coke', package_unit: 'L',
+          cheapest_last_week: price_params,
+          cheapest_last_month: price_params,
+          cheapest_last_year: price_params }
+      ])
     end
 
-    it '10 limit default on package_unit' do
-      11.times.each do |i|
-        create_price_entry(package_unit: "Hello #{i}")
-      end
-      expect(subject.new.execute.map { |p| p[:package_unit] }).to eql(['Hello 0', 'Hello 1', 'Hello 10', 'Hello 2',
-                                                                       'Hello 3', 'Hello 4', 'Hello 5', 'Hello 6',
-                                                                       'Hello 7', 'Hello 8'])
+    it 'ignores entries older than 1 year' do
+      price_params = default_price_attributes(date_on: Date.today - 366)
+      create_price_entry(price_params)
+      results = subject.new.execute
+      expect(results).to eql([])
     end
 
-    it '10 limit default on package_unit and name' do
-      4.times.each do |i|
-        4.times.each do |j|
-          create_price_entry(product_brand_name: "N#{i}", package_unit: "Q#{j}")
-        end
-      end
-      name_and_package_unit_array = subject.new.execute.map { |p| p[:product_brand_name] + p[:package_unit] }
-      expect(name_and_package_unit_array).to eql(%w(N0Q0 N0Q1 N0Q2 N0Q3 N1Q0 N1Q1 N1Q2 N1Q3 N2Q0 N2Q1))
+    it 'returns best price_per_package_unit if only last year' do
+      price_params = default_price_attributes(product_brand_name: 'Coke',
+                                              package_unit: 'L', package_size: 2,
+                                              quanity: 1.0, total_price: 10.0,
+                                              date_on: Date.today - 36)
+      create_price_entry(price_params)
+      price_params.merge!(price_per_package_unit: 5.0)
+      results = subject.new.execute
+      expect(results).to eql([
+        product: 'Coke', package_unit: 'L',
+        cheapest_last_week: nil,
+        cheapest_last_month: nil,
+        cheapest_last_year: price_params
+      ])
     end
 
-    it '3 price limit'  do
-      4.times.each do |i|
-        create_price_entry(location: "Hello #{i}")
+    it 'returns a only 10 products based on product_brand_name' do
+      11.times do |product_number|
+        price_params = default_price_attributes(product_brand_name: "Cooldrink #{product_number}")
+        create_price_entry(price_params)
       end
-      expect(subject.new.execute.first[:prices]).to eql([{ generic_name: 'Soda', store: 'Pick n Pay',
-                                                           location: 'Hello 0', product_brand_name: 'Coke',
-                                                           quanity: 6.0, package_unit: 'ml', total_price: 38.99,
-                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_size: 340, category: 'Drinks' },
-                                                         { generic_name: 'Soda', store: 'Pick n Pay',
-                                                           location: 'Hello 1', product_brand_name: 'Coke',
-                                                           quanity: 6.0, package_unit: 'ml', total_price: 38.99,
-                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_size: 340, category: 'Drinks' },
-                                                         { generic_name: 'Soda', store: 'Pick n Pay',
-                                                           location: 'Hello 2', product_brand_name: 'Coke',
-                                                           quanity: 6.0, package_unit: 'ml', total_price: 38.99,
-                                                           date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                           package_size: 340, category: 'Drinks' }
-                                                        ])
+      results = subject.new.execute
+      expect(results.size).to eql(10)
     end
 
-    it '3 price limit'  do
-      4.times.each do |i|
-        4.times.each do |j|
-          4.times.each do |_k|
-            create_price_entry(location: "Hello #{i}", product_brand_name: "N#{i}", package_unit: "Q#{j}")
-          end
-        end
+    it 'returns a only 10 products based on package_unit' do
+      11.times do |product_number|
+        price_params = default_price_attributes(package_unit: "ml#{product_number}")
+        create_price_entry(price_params)
       end
-      expect(subject.new.execute.last[:prices]).to eql([{ product_brand_name: 'N2', store: 'Pick n Pay',
-                                                          location: 'Hello 2', generic_name: 'Soda',
-                                                          quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
-                                                          date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_size: 340, category: 'Drinks' },
-                                                        { product_brand_name: 'N2', store: 'Pick n Pay',
-                                                          location: 'Hello 2', generic_name: 'Soda',
-                                                          quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
-                                                          date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_size: 340, category: 'Drinks' },
-                                                        { product_brand_name: 'N2', store: 'Pick n Pay',
-                                                          location: 'Hello 2', generic_name: 'Soda',
-                                                          quanity: 6.0, package_unit: 'Q1', total_price: 38.99,
-                                                          date_on: Date.today, expires_on: nil, extra_info: nil,
-                                                          package_size: 340, category: 'Drinks' }])
+      results = subject.new.execute
+      expect(results.size).to eql(10)
+    end
+
+    it 'returns products based on product_brand_name match' do
+      price_params = default_price_attributes(product_brand_name: 'Cooldrink')
+      create_price_entry(price_params)
+      price_params = default_price_attributes(product_brand_name: 'Other')
+      create_price_entry(price_params)
+      price_params = default_price_attributes(product_brand_name: 'FizzCool')
+      create_price_entry(price_params)
+      price_params = default_price_attributes(product_brand_name: 'FizzCooling')
+      create_price_entry(price_params)
+      product_brand_names = subject.new(term: 'Cool').execute.map { |item| item[:product] }
+      expect(product_brand_names).to eql(%w(Cooldrink FizzCool FizzCooling))
     end
   end
 end

@@ -1,32 +1,27 @@
-require 'singleton'
+require 'active_support/core_ext/hash/except'
+require 'active_support/core_ext/date/calculations'
 require './config/enviroment'
+require_relative 'products_query/product_page'
 
 module PriceEntry
   # get all the products and prices
   class ProductsQuery
-    def initialize(limit: nil, search_string: nil)
-      @limit = (limit.nil? || limit.eql?('')) ? 10 : limit
-      @search_string = search_string
+    def initialize(term: nil)
+      @prices = DB[:price_entries]
+                .where { date_on > Date.today - 365 }
+                .order(:price_per_package_unit)
+                .where(Sequel.ilike(:product_brand_name, "%#{term}%"))
     end
 
     def execute
-      products = DB[:products].limit(@limit)
-      products = products.filter(Sequel.like(:product_brand_name, "%#{@search_string}%"))
-      products = products.order(:product_brand_name, :package_unit)
-      render_products(products)
-    end
+      product_names_and_units = @prices.select(:product_brand_name, :package_unit)
+                                .all.uniq.first(10)
 
-    private
-
-    def render_products(products)
-      products.map do |product|
-        filtered_prices = DB[:price_entries].filter(product_brand_name: product[:product_brand_name],
-                                                    package_unit: product[:package_unit])
-        prices = filtered_prices.limit(3).map { |p| p.tap { |d| d.delete(:id) } }
-        { product_brand_name: product[:product_brand_name],
-          package_unit: product[:package_unit],
-          prices: prices }
+      products = product_names_and_units.collect do |product_name_and_unit|
+        ProductPage.new(product_name_and_unit, @prices)
       end
+
+      products.map(&:to_hash)
     end
   end
 end
