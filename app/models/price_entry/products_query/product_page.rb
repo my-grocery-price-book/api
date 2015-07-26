@@ -3,15 +3,16 @@ module PriceEntry
   class ProductsQuery
     # used to help build the ProductQuery response
     class ProductPage
-      def initialize(product, product_prices)
-        @product = product
-        @product_prices = product_prices.where(product)
+      def initialize(product_brand_name:, package_unit:, product_prices:)
+        @product_brand_name = product_brand_name
+        @package_unit = package_unit
+        @product_prices = product_prices
       end
 
       def to_hash
         {
-          product: product_brand_name,
-          package_unit: package_unit,
+          product: @product_brand_name,
+          package_unit: @package_unit,
           cheapest_last_week: best_price_last_week,
           cheapest_last_month: best_price_last_month,
           cheapest_last_year: best_price_last_year
@@ -19,14 +20,6 @@ module PriceEntry
       end
 
       private
-
-      def product_brand_name
-        @product[:product_brand_name]
-      end
-
-      def package_unit
-        @product[:package_unit]
-      end
 
       def best_price_last_year
         best_price_last_year = @product_prices.first

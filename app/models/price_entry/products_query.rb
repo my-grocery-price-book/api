@@ -18,7 +18,8 @@ module PriceEntry
                                 .all.uniq.first(10)
 
       products = product_names_and_units.collect do |product_name_and_unit|
-        ProductPage.new(product_name_and_unit, @prices)
+        product_prices = @prices.where(product_name_and_unit)
+        ProductPage.new(product_name_and_unit.merge(product_prices: product_prices))
       end
 
       products.map(&:to_hash)
