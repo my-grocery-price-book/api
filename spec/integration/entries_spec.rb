@@ -8,15 +8,15 @@ describe '/entries', type: :integration do
 
   it 'creates multiple' do
     post '/entries', price_params(store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
-                                  quanity: '2', total_price: '13.99')
+                                  quantity: '2', total_price: '13.99')
     post '/entries', price_params(store: 'Shoprite', location: 'Bothasig', product_brand_name: 'Coke',
-                                  quanity: '2', total_price: '12.99')
+                                  quantity: '2', total_price: '12.99')
     expect(last_response.status).to eq(201)
   end
 
   it 'lists new created entry' do
     post '/entries', price_params(store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
-                                  quanity: '2', total_price: '13.99')
+                                  quantity: '2', total_price: '13.99')
     get '/entries'
     expect(last_response.status).to eq(200)
     expect(last_response.body).to include('Pick n Pay')
@@ -24,9 +24,9 @@ describe '/entries', type: :integration do
 
   it 'list multiple of same item' do
     post '/entries', price_params(store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
-                                  quanity: '2', total_price: '13.99')
+                                  quantity: '2', total_price: '13.99')
     post '/entries', price_params(store: 'Shoprite', location: 'Bothasig', product_brand_name: 'Coke',
-                                  quanity: '2', total_price: '12.99')
+                                  quantity: '2', total_price: '12.99')
     get '/entries'
     expect(last_response.status).to eq(200)
     expect(last_response.body).to include('Pick n Pay')

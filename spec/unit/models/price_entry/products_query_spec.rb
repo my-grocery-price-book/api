@@ -14,7 +14,7 @@ describe PriceEntry::ProductsQuery do
 
     def default_price_attributes(new_params)
       { generic_name: 'Soda', store: 'Spar', location: 'Goodwood',
-        product_brand_name: 'Coke', quanity: 1.0, package_unit: 'L', total_price: 10.0,
+        product_brand_name: 'Coke', quantity: 1.0, package_unit: 'L', total_price: 10.0,
         date_on: Date.today, expires_on: nil, extra_info: nil, package_size: 2,
         category: 'Drinks' }.merge(new_params)
     end
@@ -26,7 +26,7 @@ describe PriceEntry::ProductsQuery do
     it 'returns a single price_entry' do
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
@@ -42,12 +42,12 @@ describe PriceEntry::ProductsQuery do
     it 'returns best price_per_package_unit' do
       price_params1 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 20.0,
+                                               quantity: 1.0, total_price: 20.0,
                                                date_on: Date.today)
       create_price_entry(price_params1)
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
@@ -63,17 +63,17 @@ describe PriceEntry::ProductsQuery do
     it 'returns best price_per_package_unit for last week' do
       price_params2 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 22.0,
+                                               quantity: 1.0, total_price: 22.0,
                                                date_on: Date.today)
       create_price_entry(price_params2)
       price_params1 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 20.0,
+                                               quantity: 1.0, total_price: 20.0,
                                                date_on: Date.today - 6)
       create_price_entry(price_params1)
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today - 7)
       create_price_entry(price_params)
       price_params1.merge!(price_per_package_unit: 10.0)
@@ -90,17 +90,17 @@ describe PriceEntry::ProductsQuery do
     it 'returns best price_per_package_unit for last month' do
       price_params2 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 22.0,
+                                               quantity: 1.0, total_price: 22.0,
                                                date_on: Date.today)
       create_price_entry(price_params2)
       price_params1 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 20.0,
+                                               quantity: 1.0, total_price: 20.0,
                                                date_on: Date.today - 29)
       create_price_entry(price_params1)
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today - 30)
       create_price_entry(price_params)
       price_params2.merge!(price_per_package_unit: 11.0)
@@ -118,17 +118,17 @@ describe PriceEntry::ProductsQuery do
     it 'returns best price_per_package_unit for last year' do
       price_params2 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 22.0,
+                                               quantity: 1.0, total_price: 22.0,
                                                date_on: Date.today)
       create_price_entry(price_params2)
       price_params1 = default_price_attributes(product_brand_name: 'Coke',
                                                package_unit: 'L', package_size: 2,
-                                               quanity: 1.0, total_price: 20.0,
+                                               quantity: 1.0, total_price: 20.0,
                                                date_on: Date.today - 364)
       create_price_entry(price_params1)
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today - 365)
       create_price_entry(price_params)
       price_params2.merge!(price_per_package_unit: 11.0)
@@ -145,13 +145,13 @@ describe PriceEntry::ProductsQuery do
     it 'returns a multiple price_entries' do
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
       price_params1 = default_price_attributes(product_brand_name: 'Bread',
                                                package_unit: 'Grams', package_size: 700,
-                                               quanity: 1.0, total_price: 7.0,
+                                               quantity: 1.0, total_price: 7.0,
                                                date_on: Date.today)
       create_price_entry(price_params1)
       price_params1.merge!(price_per_package_unit: 0.01)
@@ -179,7 +179,7 @@ describe PriceEntry::ProductsQuery do
     it 'returns best price_per_package_unit if only last year' do
       price_params = default_price_attributes(product_brand_name: 'Coke',
                                               package_unit: 'L', package_size: 2,
-                                              quanity: 1.0, total_price: 10.0,
+                                              quantity: 1.0, total_price: 10.0,
                                               date_on: Date.today - 36)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
