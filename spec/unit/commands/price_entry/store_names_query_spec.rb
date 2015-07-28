@@ -1,7 +1,7 @@
 require 'unit_helper'
 
-require './app/models/price_entry/store_names_query'
-require './spec/unit/models/price_entry/add_price_command_helper'
+require './app/commands/price_entry/store_names_query'
+require './spec/unit/commands/price_entry/add_price_command_helper'
 
 describe PriceEntry::StoreNamesQuery do
   include AddPriceCommandHelpers

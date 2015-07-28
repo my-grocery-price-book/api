@@ -1,6 +1,6 @@
 require 'unit_helper'
 
-require './app/models/price_entry/add_price_command'
+require './app/commands/price_entry/add_price_command'
 
 # test helpers for creating price entries
 module AddPriceCommandHelpers

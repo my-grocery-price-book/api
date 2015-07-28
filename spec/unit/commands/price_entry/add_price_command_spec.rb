@@ -1,7 +1,7 @@
 require 'unit_helper'
 require 'active_support/core_ext/hash/except'
 
-require './app/models/price_entry/add_price_command'
+require './app/commands/price_entry/add_price_command'
 
 describe PriceEntry::AddPriceCommand do
   let(:subject) { PriceEntry::AddPriceCommand }

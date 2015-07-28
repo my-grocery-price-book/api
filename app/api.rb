@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../config/enviroment')
 require 'grape'
 require 'grape-swagger'
 
-require './app/models/price_entry'
+require './app/commands/price_entry'
 
 # main grape class
 class PriceBookApi < Grape::API
