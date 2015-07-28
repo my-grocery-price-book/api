@@ -35,5 +35,7 @@
   copy: src=etc/postgresql/9.3/main/postgresql.conf dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0644
   notify: restarting postgresql
 
+- include: setup_backups.yml
+
 - include: development.yml
   when: development is defined
