@@ -3,6 +3,7 @@ require 'rack/test'
 
 require './config/enviroment'
 require './app/commands/price_entry'
+require './app/commands/user'
 
 def app
   @app ||= Rack::Builder.parse_file('./config.ru').first
@@ -25,5 +26,6 @@ RSpec.configure do |config|
 
   config.before(:each, type: :integration) do
     DB[:price_entries].truncate
+    DB[:users].truncate
   end
 end

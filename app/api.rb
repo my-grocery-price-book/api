@@ -4,15 +4,21 @@ require 'grape'
 require 'grape-swagger'
 
 require './app/commands/price_entry'
+require './app/commands/user'
 
 # main grape class
 class PriceBookApi < Grape::API
   default_format :json
 
   rescue_from :all do |e|
-    LOGGER.error(e)
-    Rollbar.error(e)
-    error_response(message: e.message)
+    if e.is_a?(Grape::Exceptions::ValidationErrors) || e.is_a?(User::ValidationError)
+      LOGGER.warn(e)
+      error!(e.message, 400)
+    else
+      LOGGER.error(e)
+      Rollbar.error(e)
+      error!(e.message)
+    end
   end
 
   desc 'Test Airbrake'
@@ -23,6 +29,15 @@ class PriceBookApi < Grape::API
   desc 'ping'
   get '/ping' do
     'pong'
+  end
+
+  desc 'creating new user'
+  params do
+    requires :email, type: String, desc: 'Email address'
+    optional :shopper_name, type: String, desc: 'Shopper display Name'
+  end
+  post '/users' do
+    User::AddCommand.new(email: params.email, shopper_name: params.shopper_name).execute
   end
 
   desc 'get all the stores'
