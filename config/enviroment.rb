@@ -10,7 +10,7 @@ Rollbar.configure do |config|
   config.access_token = 'b330dae833714676a4e8c809b11144f6'
   config.disable_monkey_patch = true
   config.environment = ENV['RACK_ENV']
-  config.enabled = (ENV['MUTANT'].nil?)
+  config.enabled = (ENV['MUTANT'].nil? && ENV['RACK_ENV'] == 'production')
 end
 
 begin
