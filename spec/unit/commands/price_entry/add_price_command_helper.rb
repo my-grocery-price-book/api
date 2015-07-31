@@ -6,7 +6,7 @@ require './app/commands/price_entry/add_price_command'
 module AddPriceCommandHelpers
   def default_price_params(override_params = {})
     { store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke', category: 'Drinks',
-      generic_name: 'Soda', package_size: 340, date_on: Date.today, package_unit: 'ml',
+      generic_name: 'Soda', package_size: 340, date_on: Date.today, package_unit: 'ml', shopper_id: 1,
       quantity: 6.0, total_price: 38.99, expires_on: nil, extra_info: nil }.merge(override_params)
   end
 

@@ -81,6 +81,7 @@ class PriceBookApi < Grape::API
   resource :entries do
     desc 'Create a new price book entry'
     params do
+      requires :api_key, type: String, desc: 'Shopper API key'
       requires :product_brand_name, type: String, desc: 'Product brand specific name'
       optional :generic_name, type: String, desc: 'Generic Name'
       requires :category, type: String, desc: 'Category'
@@ -95,12 +96,14 @@ class PriceBookApi < Grape::API
       optional :extra_info, type: String, desc: 'Additional information'
     end
     post do
+      shopper_id = User::GetShopperIdForKey.new(api_key: params.api_key).execute
+      error!('invalid api_key', 401) if shopper_id.nil?
       PriceEntry::AddPriceCommand.new(
         generic_name: params.generic_name, product_brand_name: params.product_brand_name,
         date_on: params.date_on, store: params['store'], location: params.location,
         package_size: params.package_size, package_unit: params.package_unit, quantity: params.quantity,
         total_price: params.total_price, category: params.category, expires_on: params.expires_on,
-        extra_info: params.extra_info).execute
+        extra_info: params.extra_info, shopper_id: shopper_id).execute
       { success: true }
     end
 

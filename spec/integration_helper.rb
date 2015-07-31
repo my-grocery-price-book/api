@@ -10,7 +10,8 @@ def app
 end
 
 def price_params(override_params = {})
-  { store: 'Pick n Pay',
+  { api_key: default_api_key,
+    store: 'Pick n Pay',
     location: 'Canal Walk',
     product_brand_name: 'Coke',
     category: 'Drinks',
@@ -19,6 +20,12 @@ def price_params(override_params = {})
     package_unit: 'ml',
     quantity: '6',
     total_price: '38.99' }.merge(override_params)
+end
+
+def default_api_key
+  return @api_key if @api_key
+  post '/users', email: 'grant@example.com'
+  @api_key = JSON.parse(last_response.body)['api_key']
 end
 
 RSpec.configure do |config|

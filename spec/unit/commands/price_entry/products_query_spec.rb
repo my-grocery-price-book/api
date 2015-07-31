@@ -13,7 +13,7 @@ describe PriceEntry::ProductsQuery do
     end
 
     def default_price_attributes(new_params)
-      { generic_name: 'Soda', store: 'Spar', location: 'Goodwood',
+      { generic_name: 'Soda', store: 'Spar', location: 'Goodwood', shopper_id: 1,
         product_brand_name: 'Coke', quantity: 1.0, package_unit: 'L', total_price: 10.0,
         date_on: Date.today, expires_on: nil, extra_info: nil, package_size: 2,
         category: 'Drinks' }.merge(new_params)
