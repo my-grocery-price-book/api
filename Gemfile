@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # application
 gem 'grape'
-gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 gem 'sequel'

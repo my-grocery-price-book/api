@@ -1,7 +1,6 @@
 # encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../config/enviroment')
 require 'grape'
-require 'grape-swagger'
 
 require './app/commands/price_entry'
 require './app/commands/user'
@@ -116,6 +115,4 @@ class PriceBookApi < Grape::API
       PriceEntry::PricesQuery.new(limit: params.limit, search_string: params.search).execute
     end
   end
-
-  add_swagger_documentation hide_format: true
 end
