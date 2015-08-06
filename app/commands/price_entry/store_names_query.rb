@@ -4,8 +4,12 @@ require './config/enviroment'
 module PriceEntry
   # returns uniq storage names
   class StoreNamesQuery
+    def initialize(region:)
+      @store_names = DB[:price_entries].filter(region: region).distinct.select(:store)
+    end
+
     def execute
-      DB[:store_names].order(:store).map(:store)
+      @store_names.order(:store).map(:store)
     end
   end
 end

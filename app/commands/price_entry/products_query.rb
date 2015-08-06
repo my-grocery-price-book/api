@@ -6,8 +6,9 @@ require_relative 'products_query/product_page'
 module PriceEntry
   # get all the products and prices
   class ProductsQuery
-    def initialize(term: nil)
+    def initialize(region:, term:)
       @prices = DB[:price_entries]
+                .filter(region: region)
                 .where { date_on > Date.today - 365 }
                 .order(:price_per_package_unit)
                 .where(Sequel.ilike(:product_brand_name, "%#{term}%"))

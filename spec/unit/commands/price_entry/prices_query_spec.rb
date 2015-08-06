@@ -12,55 +12,70 @@ describe PriceEntry::PricesQuery do
       truncate_price_entries
     end
 
-    it 'empty array by default'  do
-      expect(subject.new.execute).to eql([])
+    def execute(region: 'za-wc', limit: nil, search_string: nil)
+      subject.new(region: region, limit: limit, search_string: search_string).execute
     end
 
-    it 'search text end of string'  do
+    it 'empty array by default'  do
+      expect(execute).to eql([])
+    end
+
+    it 'regions only 1 region'  do
+      create_price_entry(product_brand_name: 'p1', region: 'za-ec')
+      create_price_entry(product_brand_name: 'p2', region: 'za-wc')
+      create_price_entry(product_brand_name: 'p3', region: 'za-ec')
+
+      product_brand_names = execute(region: 'za-ec').map { |p| p[:product_brand_name] }.sort
+
+      expect(product_brand_names).to eql(%w(p1 p3))
+    end
+
+    it 'search text end of string' do
       6.times.each do |i|
         create_price_entry(product_brand_name: "Hello#{i * 2}")
       end
-      expect(subject.new(search_string: '0').execute.map { |p| p[:product_brand_name] }).to eql(%w(Hello0 Hello10))
+      product_brand_names = execute(search_string: '0').map { |p| p[:product_brand_name] }
+      expect(product_brand_names.sort).to eql(%w(Hello0 Hello10))
     end
 
-    it 'search text start of string'  do
+    it 'search text start of string' do
       6.times.each do |i|
         create_price_entry(product_brand_name: "#{i * 2}Hello")
       end
-      expect(subject.new(search_string: '0Hello').execute.map { |p| p[:product_brand_name] }).to eql(%w(0Hello 10Hello))
+      product_brand_names = execute(search_string: '0Hello').map { |p| p[:product_brand_name] }
+      expect(product_brand_names.sort).to eql(%w(0Hello 10Hello))
     end
 
-    it 'search text inside of string'  do
+    it 'search text inside of string' do
       6.times.each do |i|
         create_price_entry(product_brand_name: "Hel#{i * 2}lo")
       end
-      expect(subject.new(search_string: '0l').execute.map { |p| p[:product_brand_name] }).to eql(%w(Hel0lo Hel10lo))
+      product_brand_names = execute(search_string: '0l').map { |p| p[:product_brand_name] }
+      expect(product_brand_names.sort).to eql(%w(Hel0lo Hel10lo))
     end
 
-    it '5 limit'  do
+    it '5 limit' do
       6.times.each do |i|
         create_price_entry(product_brand_name: "Hello #{i}")
       end
-      expect(subject.new(limit: 5).execute.map { |p| p[:product_brand_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2',
-                                                                                       'Hello 3', 'Hello 4'])
+      size = execute(limit: 5).size
+      expect(size).to eql(5)
     end
 
     it '10 limit default on name'  do
       11.times.each do |i|
         create_price_entry(product_brand_name: "Hello #{i}")
       end
-      expect(subject.new.execute.map { |p| p[:product_brand_name] }).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3',
-                                                                             'Hello 4', 'Hello 5', 'Hello 6', 'Hello 7',
-                                                                             'Hello 8', 'Hello 9'])
+      size = execute.size
+      expect(size).to eql(10)
     end
 
     it '10 limit default on name with blank limit'  do
       11.times.each do |i|
         create_price_entry(product_brand_name: "Hello #{i}")
       end
-      product_brand_names = subject.new(limit: '').execute.map { |p| p[:product_brand_name] }
-      expect(product_brand_names).to eql(['Hello 0', 'Hello 1', 'Hello 2', 'Hello 3', 'Hello 4',
-                                          'Hello 5', 'Hello 6', 'Hello 7', 'Hello 8', 'Hello 9'])
+      size = execute(limit: '').size
+      expect(size).to eql(10)
     end
   end
 end

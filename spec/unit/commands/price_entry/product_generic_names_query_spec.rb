@@ -4,6 +4,7 @@ require './app/commands/price_entry/product_generic_names_query'
 require './spec/unit/commands/price_entry/add_price_command_helper'
 
 describe PriceEntry::ProductGenericNamesQuery do
+  subject { PriceEntry::ProductGenericNamesQuery }
   include AddPriceCommandHelpers
 
   describe 'execute' do
@@ -11,20 +12,25 @@ describe PriceEntry::ProductGenericNamesQuery do
       truncate_price_entries
     end
 
-    it 'empty array by default'  do
-      expect(subject.execute).to eql([])
+    def execute(*args)
+      subject.new(*args).execute
     end
 
-    it 'returns the product name'  do
-      create_price_entry(generic_name: 'Hello')
-      expect(subject.execute).to eql(['Hello'])
+    it 'empty array by default' do
+      create_price_entry(generic_name: 'Hello', region: 'za-wc')
+      expect(execute(region: 'za-nl')).to eql([])
     end
 
-    it 'returns uniq names'  do
-      create_price_entry(generic_name: 'Hello')
-      create_price_entry(generic_name: 'Test')
-      create_price_entry(generic_name: 'Test')
-      expect(subject.execute).to eql(%w(Hello Test))
+    it 'returns the product name' do
+      create_price_entry(generic_name: 'Hello', region: 'za-nl')
+      expect(execute(region: 'za-nl')).to eql(['Hello'])
+    end
+
+    it 'returns uniq names' do
+      create_price_entry(generic_name: 'Hello', region: 'za-nl')
+      create_price_entry(generic_name: 'Test', region: 'za-nl')
+      create_price_entry(generic_name: 'Test', region: 'za-nl')
+      expect(execute(region: 'za-nl').sort).to eql(%w(Hello Test))
     end
   end
 end

@@ -4,8 +4,12 @@ require './config/enviroment'
 module PriceEntry
   # gets all the uniq unit names
   class UnitNamesQuery
+    def initialize(region:)
+      @unit_names = DB[:price_entries].filter(region: region).distinct.select(:package_unit)
+    end
+
     def execute
-      DB[:unit_names].map(:package_unit)
+      @unit_names.map(:package_unit)
     end
   end
 end

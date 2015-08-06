@@ -16,11 +16,16 @@ describe PriceEntry::ProductsQuery do
       { generic_name: 'Soda', store: 'Spar', location: 'Goodwood', shopper_id: 1,
         product_brand_name: 'Coke', quantity: 1.0, package_unit: 'L', total_price: 10.0,
         date_on: Date.today, expires_on: nil, extra_info: nil, package_size: 2,
-        category: 'Drinks' }.merge(new_params)
+        category: 'Drinks', region: 'za-wc' }.merge(new_params)
+    end
+
+    def execute(*args)
+      subject.new(*args).execute
     end
 
     it 'empty array by default'  do
-      expect(subject.new.execute).to eql([])
+      create_price_entry(region: 'za-ec')
+      expect(execute(region: 'za-wc', term: nil)).to eql([])
     end
 
     it 'returns a single price_entry' do
@@ -30,7 +35,7 @@ describe PriceEntry::ProductsQuery do
                                               date_on: Date.today)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: price_params,
@@ -51,7 +56,7 @@ describe PriceEntry::ProductsQuery do
                                               date_on: Date.today)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: price_params,
@@ -78,7 +83,7 @@ describe PriceEntry::ProductsQuery do
       create_price_entry(price_params)
       price_params1.merge!(price_per_package_unit: 10.0)
       price_params.merge!(price_per_package_unit: 5.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: price_params1,
@@ -106,7 +111,7 @@ describe PriceEntry::ProductsQuery do
       price_params2.merge!(price_per_package_unit: 11.0)
       price_params1.merge!(price_per_package_unit: 10.0)
       price_params.merge!(price_per_package_unit: 5.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: price_params2,
@@ -133,7 +138,7 @@ describe PriceEntry::ProductsQuery do
       create_price_entry(price_params)
       price_params2.merge!(price_per_package_unit: 11.0)
       price_params1.merge!(price_per_package_unit: 10.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: price_params2,
@@ -155,7 +160,7 @@ describe PriceEntry::ProductsQuery do
                                                date_on: Date.today)
       create_price_entry(price_params1)
       price_params1.merge!(price_per_package_unit: 0.01)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         {
           product: 'Bread', package_unit: 'Grams',
@@ -172,7 +177,7 @@ describe PriceEntry::ProductsQuery do
     it 'ignores entries older than 1 year' do
       price_params = default_price_attributes(date_on: Date.today - 366)
       create_price_entry(price_params)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([])
     end
 
@@ -183,7 +188,7 @@ describe PriceEntry::ProductsQuery do
                                               date_on: Date.today - 36)
       create_price_entry(price_params)
       price_params.merge!(price_per_package_unit: 5.0)
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results).to eql([
         product: 'Coke', package_unit: 'L',
         cheapest_last_week: nil,
@@ -197,7 +202,7 @@ describe PriceEntry::ProductsQuery do
         price_params = default_price_attributes(product_brand_name: "Cooldrink #{product_number}")
         create_price_entry(price_params)
       end
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results.size).to eql(10)
     end
 
@@ -206,7 +211,7 @@ describe PriceEntry::ProductsQuery do
         price_params = default_price_attributes(package_unit: "ml#{product_number}")
         create_price_entry(price_params)
       end
-      results = subject.new.execute
+      results = execute(region: 'za-wc', term: nil)
       expect(results.size).to eql(10)
     end
 
@@ -219,8 +224,8 @@ describe PriceEntry::ProductsQuery do
       create_price_entry(price_params)
       price_params = default_price_attributes(product_brand_name: 'FizzCooling')
       create_price_entry(price_params)
-      product_brand_names = subject.new(term: 'Cool').execute.map { |item| item[:product] }
-      expect(product_brand_names).to eql(%w(Cooldrink FizzCool FizzCooling))
+      product_brand_names = subject.new(region: 'za-wc', term: 'Cool').execute.map { |item| item[:product] }
+      expect(product_brand_names.sort).to eql(%w(Cooldrink FizzCool FizzCooling))
     end
   end
 end
