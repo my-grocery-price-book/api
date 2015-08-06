@@ -8,8 +8,7 @@ module PriceEntry
   class ProductsQuery
     def initialize(region:, term:)
       @prices = DB[:price_entries]
-                .filter(region: region)
-                .where { date_on > Date.today - 365 }
+                .where(region: region) { date_on > Date.today - 365 }
                 .order(:price_per_package_unit)
                 .where(Sequel.ilike(:product_brand_name, "%#{term}%"))
     end
