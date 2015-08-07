@@ -23,7 +23,8 @@ begin
   if ENV['MUTANT']
     DB = Sequel.sqlite
   else
-    sql_connection_url = "postgresql://#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}"
+    sql_connection_url = "postgresql://#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}"
+    sql_connection_url += "@#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}"
     LOGGER.info("connecting to #{sql_connection_url}")
     DB = Sequel.connect(sql_connection_url, max_connections: 16)
   end
