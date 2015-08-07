@@ -7,15 +7,15 @@ Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
 
 require 'rollbar'
 Rollbar.configure do |config|
-  config.access_token = 'b330dae833714676a4e8c809b11144f6'
+  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
   config.disable_monkey_patch = true
   config.environment = ENV['RACK_ENV']
   config.enabled = (ENV['MUTANT'].nil? && ENV['RACK_ENV'] == 'production')
 end
 
 begin
-  require 'syslogger'
-  LOGGER = Syslogger.new('grocery_api', Syslog::LOG_PID, Syslog::LOG_LOCAL0) unless defined?(LOGGER)
+  require 'logger'
+  LOGGER = Logger.new("log/#{ENV['RACK_ENV']}.log")
   LOGGER.level = Logger::DEBUG
   LOGGER.info("Loading Api Enviroment for #{`whoami`}")
 

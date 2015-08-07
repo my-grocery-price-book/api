@@ -158,7 +158,6 @@ GEM
       faraday
       rack
       staccato (>= 0.3.0)
-    syslogger (1.6.3)
     thread_safe (0.3.5)
     thread_safe (0.3.5-java)
     tzinfo (1.2.2)
@@ -204,7 +203,3 @@ DEPENDENCIES
   simplecov
   sqlite3
   staccato-rack
-  syslogger
-
-BUNDLED WITH
-   1.10.5
