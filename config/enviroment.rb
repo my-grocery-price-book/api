@@ -20,7 +20,13 @@ begin
   LOGGER.info("Loading Api Enviroment for #{`whoami`}")
 
   require 'sequel'
-  DB = ENV['MUTANT'] ? Sequel.sqlite : Sequel.connect(ENV['SEQUEL_CONNECT'])
+  if ENV['MUTANT']
+    DB = Sequel.sqlite
+  else
+    LOGGER.info("SEQUEL_CONNECT: #{ENV['SEQUEL_CONNECT']}")
+    Sequel.connect(ENV['SEQUEL_CONNECT'], max_connections: 16)
+  end
+
   DB.loggers << LOGGER
 
   Sequel.extension :migration
@@ -29,4 +35,5 @@ begin
   LOGGER.info("Api Enviroment Loaded and DB Migrated for #{`whoami`}")
 rescue => e
   Rollbar.critical(e)
+  raise e
 end
