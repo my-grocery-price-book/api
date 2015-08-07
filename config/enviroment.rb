@@ -3,6 +3,9 @@ require 'rubygems'
 require 'bundler/setup'
 require 'dotenv'
 ENV['RACK_ENV'] ||= 'development'
+if ENV['RDS_DB_NAME'] && ENV['RDS_USERNAME']
+  ENV['SEQUEL_CONNECT'] = "postgresql://#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}?pool=5"
+end
 Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
 
 require 'rollbar'
