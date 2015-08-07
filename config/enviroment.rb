@@ -17,19 +17,17 @@ begin
   require 'logger'
   LOGGER = Logger.new("log/#{ENV['RACK_ENV']}.log")
   LOGGER.level = Logger::DEBUG
-  LOGGER.info("Loading Api Enviroment for user:#{`whoami`} pid:#{Process.pid}")
+  LOGGER.info("Loading Api Enviroment for user:#{`whoami`.chomp} pid:#{Process.pid}")
 
   require 'sequel'
   if ENV['MUTANT']
     DB = Sequel.sqlite
   else
-    LOGGER.info("ORG_SEQUEL_CONNECT: #{ENV['SEQUEL_CONNECT']}")
-    if ENV['RDS_DB_NAME'] && ENV['RDS_USERNAME']
-      ENV['SEQUEL_CONNECT'] = "postgresql://#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}?pool=5"
-    end
-    LOGGER.info("SEQUEL_CONNECT: #{ENV['SEQUEL_CONNECT']}")
-    DB = Sequel.connect(ENV['SEQUEL_CONNECT'], max_connections: 16)
+    sql_connection_url = "postgresql://#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}"
+    LOGGER.info("connecting to #{sql_connection_url}")
+    DB = Sequel.connect(sql_connection_url, max_connections: 16)
   end
+  DB.sql_log_level = :debug
 
   DB.loggers << LOGGER
 
