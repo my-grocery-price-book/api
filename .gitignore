@@ -5,6 +5,7 @@ coverage
 db/sqlite3/*.db
 bin/*
 ansible/vault_pass.txt
+log/*.log
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
