@@ -16,17 +16,17 @@ describe PriceEntry::LocationNamesQuery do
       subject.new(region: region).execute
     end
 
-    it 'empty array by default'  do
+    it 'empty array by default' do
       expect(execute(region: 'za-wc')).to eql([])
     end
 
-    it 'returns the location name for region'  do
+    it 'returns the location name for region' do
       create_price_entry(location: 'Mars', region: 'za-ec')
       create_price_entry(location: 'World', region: 'za-wc')
       expect(execute(region: 'za-wc')).to eql(['World'])
     end
 
-    it 'returns uniq names'  do
+    it 'returns uniq names' do
       create_price_entry(location: 'Hello', region: 'za-wc')
       create_price_entry(location: 'Test', region: 'za-wc')
       create_price_entry(location: 'Test', region: 'za-wc')

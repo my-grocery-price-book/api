@@ -26,14 +26,14 @@ describe PriceEntry::ProductBrandNamesQuery do
       expect(execute(region: 'za-ec', search_text: nil)).to eql(['World'])
     end
 
-    it 'returns uniq names'  do
+    it 'returns uniq names' do
       create_price_entry(region: 'za-ec', product_brand_name: 'Hello')
       create_price_entry(region: 'za-ec', product_brand_name: 'Test')
       create_price_entry(region: 'za-ec', product_brand_name: 'Test')
       expect(execute(region: 'za-ec', search_text: nil).sort).to eql(%w(Hello Test))
     end
 
-    it 'limits at 20 entries'  do
+    it 'limits at 20 entries' do
       21.times do |i|
         create_price_entry(region: 'za-ec', product_brand_name: 'Hello' + i.to_s)
       end

@@ -39,7 +39,7 @@ module User
     def params
       { email: @email,
         shopper_name: @shopper_name,
-        api_key:  @api_key }
+        api_key: @api_key }
     end
   end
 end

@@ -16,11 +16,11 @@ describe PriceEntry::PricesQuery do
       subject.new(region: region, limit: limit, search_string: search_string).execute
     end
 
-    it 'empty array by default'  do
+    it 'empty array by default' do
       expect(execute).to eql([])
     end
 
-    it 'regions only 1 region'  do
+    it 'regions only 1 region' do
       create_price_entry(product_brand_name: 'p1', region: 'za-ec')
       create_price_entry(product_brand_name: 'p2', region: 'za-wc')
       create_price_entry(product_brand_name: 'p3', region: 'za-ec')
@@ -62,7 +62,7 @@ describe PriceEntry::PricesQuery do
       expect(size).to eql(5)
     end
 
-    it '10 limit default on name'  do
+    it '10 limit default on name' do
       11.times.each do |i|
         create_price_entry(product_brand_name: "Hello #{i}")
       end
@@ -70,7 +70,7 @@ describe PriceEntry::PricesQuery do
       expect(size).to eql(10)
     end
 
-    it '10 limit default on name with blank limit'  do
+    it '10 limit default on name with blank limit' do
       11.times.each do |i|
         create_price_entry(product_brand_name: "Hello #{i}")
       end

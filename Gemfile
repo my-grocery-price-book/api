@@ -25,7 +25,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubocop'
   gem 'rspec'
   gem 'parallel_tests'
 end

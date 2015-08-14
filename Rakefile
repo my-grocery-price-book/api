@@ -1,8 +1,5 @@
 # encoding: utf-8
 begin
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-
   require 'rspec/core'
   require 'rspec/core/rake_task'
   desc 'Run our Spec'
@@ -18,7 +15,7 @@ begin
     fail unless result == Mutant::CLI::EXIT_SUCCESS
   end
 
-  task default: ['rubocop', :spec, :mutant]
+  task default: [:spec, :mutant]
 rescue LoadError => e
   warn e.message
 end

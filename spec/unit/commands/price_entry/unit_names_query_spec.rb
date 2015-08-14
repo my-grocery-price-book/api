@@ -27,7 +27,7 @@ describe PriceEntry::UnitNamesQuery do
       expect(execute(region: 'za-nl')).to eql(['Hello'])
     end
 
-    it 'returns uniq names'  do
+    it 'returns uniq names' do
       create_price_entry(region: 'za-nl', package_unit: 'Hello')
       create_price_entry(region: 'za-nl', package_unit: 'Test')
       create_price_entry(region: 'za-nl', package_unit: 'Test')

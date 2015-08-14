@@ -16,7 +16,7 @@ end
 set :application, 'grocery_price_book_api'
 set :repo_url, 'git@bitbucket.org:grantspeelman/grocery_price_book_api.git'
 
-set :ssh_options,  forward_agent: true
+set :ssh_options, forward_agent: true
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

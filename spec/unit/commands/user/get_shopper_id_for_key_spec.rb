@@ -16,12 +16,12 @@ describe User::GetShopperIdForKey do
       command.execute
     end
 
-    it 'returns id for api_key'  do
+    it 'returns id for api_key' do
       shopper_id = DB[:users].insert(api_key: 'grant')
       expect(execute_command(api_key: 'grant')).to eq(shopper_id)
     end
 
-    it 'returns nil for unknown api_key'  do
+    it 'returns nil for unknown api_key' do
       DB[:users].insert(api_key: 'grant')
       expect(execute_command(api_key: 'test')).to be_nil
     end

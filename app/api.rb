@@ -112,7 +112,7 @@ class PriceBookApi < Grape::API
         optional :limit, type: String, desc: 'limit'
         optional :search, type: String, desc: 'search string'
       end
-      get  do
+      get do
         PriceEntry::PricesQuery.new(region: params.region,
                                     limit: params.limit,
                                     search_string: params.search).execute

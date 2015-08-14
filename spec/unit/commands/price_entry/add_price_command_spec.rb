@@ -19,14 +19,14 @@ describe PriceEntry::AddPriceCommand do
         region: 'za-wc' }
     end
 
-    it 'saves the entry to storage'  do
+    it 'saves the entry to storage' do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       entry_values = last_entry.except(:id, :price_per_package_unit)
       expect(entry_values).to eq(default_params)
     end
 
-    it 'sets price_per_package_unit'  do
+    it 'sets price_per_package_unit' do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       price_per_package_unit = last_entry[:price_per_package_unit]
