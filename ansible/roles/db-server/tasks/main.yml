@@ -12,30 +12,20 @@
 - name: Ensure PostgreSQL is running
   service: name=postgresql state=started
 
-- name: create database
-  postgresql_db: name={{item.app_db_name}} encoding='UTF-8'
-  sudo: yes
-  sudo_user: postgres
-  with_items: app_domains
+- name: wait for PostgreSQL to be running
+  wait_for: port=5432 delay=2
 
-- name: create database user
-  postgresql_user: db={{item.app_db_name}} name={{ item.app_user }} password={{item.app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
+- name: create ansible_ssh_user on postgres
+  postgresql_user: name={{ansible_ssh_user}} role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres
-  with_items: app_domains
 
 - name: add app ip addresses to pg_hba.conf
-  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf line="host all all {{ item.ip }}/24 trust"
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf line="host all all 192.168.30.17/24 trust"
   sudo: yes
   sudo_user: postgres
-  with_items: app_domains
   notify: restarting postgresql
 
 - name: update postgresql.conf
   copy: src=etc/postgresql/9.3/main/postgresql.conf dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0644
   notify: restarting postgresql
-
-- include: setup_backups.yml
-
-- include: development.yml
-  when: development is defined

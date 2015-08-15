@@ -1,5 +1,5 @@
-- hosts: app
+- hosts: db
   sudo: yes
   roles:
     - azavea.swapfile
-    - app-runner
+    - db-server

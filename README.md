@@ -6,13 +6,9 @@
 # Development Setup with Vagrant
 ```
   vagrant up
-  ssh-add .vagrant/machines/app/virtualbox/private_key
-  ssh-add .vagrant/machines/db/virtualbox/private_key
-  cd ansible && ansible-playbook -vv site.yml
   vagrant ssh
-  cd /vagrant
-  bundle install --path vendor/bundle
-  bundle exec shotgun -o 0.0.0.0 -s webrick # open browser and visit http://192.168.30.17:9393
+  cd project
+  ./run.sh
 ```
 
 # Running Tests
@@ -20,7 +16,8 @@
 [![wercker status](https://app.wercker.com/status/1d3464fefb6fd3a9bf559e302e47ed14/m "wercker status")](https://app.wercker.com/project/bykey/1d3464fefb6fd3a9bf559e302e47ed14)
 
 ```
-  bundle exec rake
+  RACK_ENV=test bundle exec rake db:create
+  bundle exec rake spec
 ```
 
 # Deployment

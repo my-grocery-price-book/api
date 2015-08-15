@@ -1,0 +1,15 @@
+- name: installing postgresql-client
+  apt: name=postgresql-client state=present
+
+- name: installing sqlite gem dependencies for mutant specs
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - sqlite3
+    - libsqlite3-dev
+
+- name: Install gems
+  gem: name={{item}} state=present user_install=no
+  sudo: yes
+  with_items:
+    - rubocop

@@ -19,3 +19,20 @@ begin
 rescue LoadError => e
   warn e.message
 end
+
+namespace :db do
+  desc 'create database'
+  task :create do
+    require 'dotenv'
+    ENV['RACK_ENV'] ||= 'development'
+    Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
+    command = 'createdb'
+    command << " --host=#{ENV['RDS_HOSTNAME']}" if ENV['RDS_HOSTNAME']
+    command << " --port=#{ENV['RDS_PORT']}" if ENV['RDS_PORT']
+    command << " -username=#{ENV['RDS_USERNAME']}" if ENV['RDS_USERNAME']
+    command << ' -W' if ENV['RDS_PASSWORD']
+    command << " #{ENV['RDS_DB_NAME']}"
+    puts command
+    `#{command}`
+  end
+end

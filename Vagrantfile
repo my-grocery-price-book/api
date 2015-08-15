@@ -66,6 +66,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
         v.cpus = 2
       end
     end
+
+    config.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'ansible/db.yml'
+      ansible.verbose = 'vv'
+    end
   end
 
   main_config.vm.define 'app', primary: true do |config|
@@ -94,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
     # config.vm.synced_folder "../data", "/vagrant_data"
-    config.vm.synced_folder '.', '/vagrant', nfs: true
+    config.vm.synced_folder '.', '/home/vagrant/project', nfs: true
 
     # Provider-specific configuration so you can fine-tune various
     # backing providers for Vagrant. These expose provider-specific options.
@@ -116,6 +121,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
       else # sorry Windows folks, I can't help you
         v.cpus = 2
       end
+    end
+
+    config.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'ansible/app.yml'
+      ansible.verbose = 'vv'
     end
   end
 end
