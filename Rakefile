@@ -27,9 +27,9 @@ namespace :db do
     ENV['RACK_ENV'] ||= 'development'
     Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
     command = 'createdb'
-    command << " --host=#{ENV['RDS_HOSTNAME']}" if ENV['RDS_HOSTNAME']
+    command << " --host=\"#{ENV['RDS_HOSTNAME']}\"" if ENV['RDS_HOSTNAME']
     command << " --port=#{ENV['RDS_PORT']}" if ENV['RDS_PORT']
-    command << " -username=#{ENV['RDS_USERNAME']}" if ENV['RDS_USERNAME']
+    command << " --username=#{ENV['RDS_USERNAME']}" if ENV['RDS_USERNAME']
     command << ' -W' if ENV['RDS_PASSWORD']
     command << " #{ENV['RDS_DB_NAME']}"
     puts command
