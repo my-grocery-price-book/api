@@ -27,7 +27,7 @@ class PriceBookApi < Grape::API
 
   desc 'ping'
   get '/ping' do
-    'pong'
+    { pong: DB.get { version {} }.present? }
   end
 
   desc 'creating new user'
