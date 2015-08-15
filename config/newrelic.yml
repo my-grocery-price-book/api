@@ -1,22 +1,10 @@
-#
-# This file configures the New Relic Agent.  New Relic monitors Ruby, Java,
-# .NET, PHP, Python and Node applications with deep visibility and low
-# overhead.  For more information, visit www.newrelic.com.
-#
-# Generated May 13, 2015
-# 
-# This configuration file is custom generated for Quickapps
-#
-# For full documentation of agent configuration options, please refer to
-# https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
-
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: ccbcd9f51bdf2071e167a7684b5455e118e89b2d
+  license_key: <%= ENV['NEWRELIC_KEY'] %>
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: Grocery Public Api <%= `whoami` %>
+  app_name: Grocery Public Api
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false

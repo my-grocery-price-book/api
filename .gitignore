@@ -4,7 +4,7 @@ tmp/var-cache-apt-archives
 coverage
 db/sqlite3/*.db
 bin/*
-ansible/vault_pass.txt
+.env
 log/*.log
 
 # Elastic Beanstalk Files
