@@ -15,7 +15,11 @@ end
 
 begin
   require 'logger'
-  LOGGER = Logger.new("log/#{ENV['RACK_ENV']}.log")
+  if ENV['LOG_TO_STDOUT']
+    LOGGER = Logger.new(STDOUT)
+  else
+    LOGGER = Logger.new("log/#{ENV['RACK_ENV']}.log")
+  end
   LOGGER.level = Logger::DEBUG
   LOGGER.info("Loading Api Enviroment for user:#{`whoami`.chomp} pid:#{Process.pid}")
 
