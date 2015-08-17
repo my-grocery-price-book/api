@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby ENV['RUBY_VERSION'] if ENV['RUBY_VERSION']
 
 # application
 gem 'grape'
