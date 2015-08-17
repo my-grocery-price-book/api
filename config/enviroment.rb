@@ -31,7 +31,7 @@ begin
     sql_connection_url += "#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@" if ENV['RDS_USERNAME']
     sql_connection_url += "#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}"
     LOGGER.info("connecting to #{sql_connection_url}")
-    DB = Sequel.connect(sql_connection_url, sslmode: (ENV['RDS_SSLMODE'] || 'disable'))
+    DB = Sequel.connect(sql_connection_url, connect_timeout: 60, sslmode: (ENV['RDS_SSLMODE'] || 'disable'))
   end
   DB.sql_log_level = :debug
 
