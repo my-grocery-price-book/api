@@ -28,7 +28,8 @@ module User
     end
 
     def check_shopper_name_validation
-      return unless !@shopper_name.nil? && DB[:users].where(shopper_name: @shopper_name).any?
+      return unless @shopper_name
+      return unless  DB[:users].where(shopper_name: @shopper_name).empty?
       fail ValidationError, 'shopper name taken'
     end
 

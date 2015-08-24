@@ -6,7 +6,8 @@ module PriceEntry
   class PricesQuery
     def initialize(region:, limit:, search_string:)
       @region = region
-      @limit = (limit.nil? || limit.eql?('')) ? 10 : limit
+      @limit = limit.to_i
+      @limit = 10 if @limit.equal?(0)
       @search_string = search_string
     end
 

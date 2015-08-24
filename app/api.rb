@@ -9,14 +9,14 @@ require './app/commands/user'
 class PriceBookApi < Grape::API
   default_format :json
 
-  rescue_from :all do |e|
-    if e.is_a?(Grape::Exceptions::ValidationErrors) || e.is_a?(User::ValidationError)
-      LOGGER.warn(e)
-      error!(e.message, 400)
+  rescue_from :all do |error|
+    if error.is_a?(Grape::Exceptions::ValidationErrors) || error.is_a?(User::ValidationError)
+      LOGGER.warn(error)
+      error!(error.message, 400)
     else
-      LOGGER.error(e)
-      Rollbar.error(e)
-      error!(e.message)
+      LOGGER.error(error)
+      Rollbar.error(error)
+      error!(error.message)
     end
   end
 
