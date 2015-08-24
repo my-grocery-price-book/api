@@ -1,9 +1,12 @@
 # encoding: utf-8
 require 'rubygems'
 require 'bundler/setup'
-require 'dotenv'
 ENV['RACK_ENV'] ||= 'development'
-Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
+
+if ENV['RACK_ENV'] != 'production'
+  require 'dotenv'
+  Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
+end
 
 require 'rollbar'
 Rollbar.configure do |config|
@@ -27,7 +30,7 @@ begin
   if ENV['MUTANT']
     DB = Sequel.sqlite
   else
-    sql_connection_url = "postgresql://"
+    sql_connection_url = 'postgresql://'
     sql_connection_url += "#{ENV['RDS_USERNAME']}:#{ENV['RDS_PASSWORD']}@" if ENV['RDS_USERNAME']
     sql_connection_url += "#{ENV['RDS_HOSTNAME']}:#{ENV['RDS_PORT']}/#{ENV['RDS_DB_NAME']}"
     DB = Sequel.connect(sql_connection_url, sslmode: (ENV['RDS_SSLMODE'] || 'disable'))

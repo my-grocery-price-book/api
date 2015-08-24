@@ -6,7 +6,6 @@ gem 'grape'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 gem 'sequel'
-gem 'dotenv'
 gem 'pg'
 gem 'newrelic_rpm' # application metrics
 gem 'staccato-rack' # google analytic tracking
@@ -24,6 +23,7 @@ end
 group :development, :test do
   gem 'rspec'
   gem 'parallel_tests'
+  gem 'dotenv'
 end
 
 group :test do
