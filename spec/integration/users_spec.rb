@@ -1,11 +1,6 @@
 require 'integration_helper'
 
 describe '/users', type: :integration do
-  it 'requires a email address' do
-    post '/users'
-    expect(last_response.status).to eq(400)
-  end
-
   it 'can create a new user' do
     post '/users', email: 'grant@example.com'
     expect(last_response.status).to eq(201)

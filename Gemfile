@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby ENV['RUBY_VERSION'] if ENV['RUBY_VERSION']
 
 # application
-gem 'grape'
+gem 'roda'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
 gem 'sequel'

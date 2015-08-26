@@ -12,18 +12,26 @@ describe PriceEntry::AddPriceCommand do
   end
 
   describe 'execute' do
-    let(:default_params) do
+    let(:default_values) do
       { date_on: Date.today, store: 'Pick n Pay', location: 'Canal Walk', product_brand_name: 'Coke',
         generic_name: 'Soda', package_size: 340, package_unit: 'ml', category: 'Drinks', shopper_id: 1,
         quantity: 6, total_price: 38.99, expires_on: Date.today + 5, extra_info: 'extra_info',
         region: 'za-wc' }
     end
 
+    let(:default_params) do
+      result = {}
+      default_values.each do |key, value|
+        result[key] = value.to_s
+      end
+      result
+    end
+
     it 'saves the entry to storage' do
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       entry_values = last_entry.except(:id, :price_per_package_unit)
-      expect(entry_values).to eq(default_params)
+      expect(entry_values).to eq(default_values)
     end
 
     it 'sets price_per_package_unit' do
@@ -34,7 +42,7 @@ describe PriceEntry::AddPriceCommand do
     end
 
     it 'sets date_on to past' do
-      default_params[:date_on] = Date.today - 1
+      default_values[:date_on] = Date.today - 1
       command = PriceEntry::AddPriceCommand.new(default_params)
       command.execute
       expect(last_entry[:date_on]).to eq(Date.today - 1)

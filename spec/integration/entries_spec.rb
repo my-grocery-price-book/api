@@ -5,7 +5,7 @@ describe '/:region/entries', type: :integration do
     temp_params = price_params
     temp_params.delete(:api_key)
     post '/za-wc/entries', temp_params
-    expect(last_response.status).to eq(400)
+    expect(last_response.status).to eq(401)
   end
 
   it 'wont allow post if invalid api_key' do

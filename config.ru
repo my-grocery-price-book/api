@@ -15,4 +15,4 @@ require 'staccato/rack'
 use Staccato::Rack::Middleware, ENV['GA_TRACKING_ID'], logger: LOGGER
 
 use Rack::CommonLogger, LOGGER
-run PriceBookApi
+run PriceBookApi.freeze.app
