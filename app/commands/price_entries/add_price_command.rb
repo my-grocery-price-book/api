@@ -4,7 +4,7 @@ require './config/enviroment'
 module PriceEntries
   # adds a price entry into storage
   class AddPriceCommand
-    def initialize(price_entry_params:,  price_entries:)
+    def initialize(price_entry_params:, price_entries:)
       @price_entries = price_entries
       @price_entry = new_price(price_entry_params)
       @params = { generic_name: @price_entry.generic_name, store: @price_entry.store, location: @price_entry.location,
@@ -27,7 +27,7 @@ module PriceEntries
                      date_on: params.date_on,
                      store: params.store,
                      location: params.location,
-                     region:  params.region,
+                     region: params.region,
                      package_size: params.package_size,
                      package_unit: params.package_unit,
                      quantity: params.quantity,

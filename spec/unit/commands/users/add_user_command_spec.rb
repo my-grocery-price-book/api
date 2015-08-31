@@ -40,7 +40,7 @@ describe Users::AddCommand do
     it 'requires shopper_name to be unique' do
       execute_command(shopper_name: 'grant', email: 'hello@example.com')
       expect do
-        execute_command(shopper_name: 'grant',  email: 'hello1@example.com')
+        execute_command(shopper_name: 'grant', email: 'hello1@example.com')
       end.to raise_error(Users::ValidationError, 'shopper name taken')
     end
 
