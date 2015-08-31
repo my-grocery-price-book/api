@@ -2,14 +2,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../config/enviroment')
 require 'roda'
 
-require './app/commands/price_entry'
-require './app/commands/user'
+require_relative 'commands/price_entries'
+require_relative 'commands/users'
+require_relative 'models/price_entry'
 
 # main grape class
 class PriceBookApi < Roda
   plugin :error_handler do |error|
     response['Content-Type'] = 'application/json'
-    if error.is_a?(User::ValidationError)
+    if error.is_a?(Users::ValidationError)
       LOGGER.warn(error)
       error(400, { error: error.message }.to_json)
     else
@@ -35,55 +36,51 @@ class PriceBookApi < Roda
 
     request.post 'users' do
       status 201
-      User::AddCommand.new(email: request.params['email'],
-                           shopper_name: request.params['shopper_name']).execute
+      Users::AddCommand.new(email: request.params['email'],
+                            shopper_name: request.params['shopper_name']).execute
     end
 
     request.on ':region' do |region|
       request.get 'store_names' do
-        PriceEntry::StoreNamesQuery.new(region: region).execute
+        PriceEntries::StoreNamesQuery.new(region: region).execute
       end
 
       request.get 'location_names' do
-        PriceEntry::LocationNamesQuery.new(region: region).execute
+        PriceEntries::LocationNamesQuery.new(region: region).execute
       end
 
       request.get 'product_brand_names' do
-        PriceEntry::ProductBrandNamesQuery.new(region: region, search_text: request.params['term']).execute
+        PriceEntries::ProductBrandNamesQuery.new(region: region, search_text: request.params['term']).execute
       end
 
       request.get 'unit_names' do
-        PriceEntry::UnitNamesQuery.new(region: region).execute
+        PriceEntries::UnitNamesQuery.new(region: region).execute
       end
 
       request.get 'product_generic_names' do
-        PriceEntry::ProductGenericNamesQuery.new(region: region).execute
+        PriceEntries::ProductGenericNamesQuery.new(region: region).execute
       end
 
       request.get 'products' do
-        PriceEntry::ProductsQuery.new(region: region, term: request.params['term']).execute
+        PriceEntries::ProductsQuery.new(region: region, term: request.params['term']).execute
       end
 
       request.on 'entries' do
         request.post do
-          shopper_id = User::GetShopperIdForKey.new(api_key: request.params['api_key']).execute
+          shopper_id = Users::GetShopperIdForKey.new(api_key: request.params['api_key']).execute
           error(401, 'invalid api_key') if shopper_id.nil?
-          PriceEntry::AddPriceCommand.new(
-            generic_name: request.params['generic_name'], product_brand_name: request.params['product_brand_name'],
-            date_on: request.params['date_on'], store: request.params['store'], location: request.params['location'],
-            region: region, package_size: request.params['package_size'],
-            package_unit: request.params['package_unit'], quantity: request.params['quantity'],
-            total_price: request.params['total_price'], category: request.params['category'],
-            expires_on: request.params['expires_on'], extra_info: request.params['extra_info'], shopper_id: shopper_id
+          PriceEntries::AddPriceCommand.new(
+            price_entry_params: request.params.merge('region' => region),
+            price_entries: DB[:price_entries]
           ).execute
           status 201
           { success: true }
         end
 
         request.get do
-          PriceEntry::PricesQuery.new(region: region,
-                                      limit: request.params['limit'],
-                                      search_string: request.params['search']).execute
+          PriceEntries::PricesQuery.new(region: region,
+                                        limit: request.params['limit'],
+                                        search_string: request.params['search']).execute
         end
       end
     end

@@ -5,23 +5,27 @@ describe '/:region/entries', type: :integration do
     temp_params = price_params
     temp_params.delete(:api_key)
     post '/za-wc/entries', temp_params
-    expect(last_response.status).to eq(401)
+    expect(status: last_response.status,
+           body: last_response.body).to eq(status: 401, body: 'invalid api_key')
   end
 
   it 'wont allow post if invalid api_key' do
     post '/za-wc/entries', price_params.merge(api_key: '0')
-    expect(last_response.status).to eq(401)
+    expect(status: last_response.status,
+           body: last_response.body).to eq(status: 401, body: 'invalid api_key')
   end
 
   it 'create new entry' do
     post '/za-wc/entries', price_params
-    expect(last_response.status).to eq(201)
+    expect(status: last_response.status,
+           body: last_response.body).to eq(status: 201, body: '{"success":true}')
   end
 
   it 'creates multiple in same region' do
     post '/za-wc/entries', price_params
     post '/za-wc/entries', price_params
-    expect(last_response.status).to eq(201)
+    expect(status: last_response.status,
+           body: last_response.body).to eq(status: 201, body: '{"success":true}')
   end
 
   it 'lists new created entry' do

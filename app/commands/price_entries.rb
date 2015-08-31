@@ -1,0 +1,8 @@
+require './app/commands/price_entries/add_price_command'
+require './app/commands/price_entries/prices_query'
+require './app/commands/price_entries/product_brand_names_query'
+require './app/commands/price_entries/location_names_query'
+require './app/commands/price_entries/store_names_query'
+require './app/commands/price_entries/unit_names_query'
+require './app/commands/price_entries/product_generic_names_query'
+require './app/commands/price_entries/products_query'

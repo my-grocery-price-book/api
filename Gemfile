@@ -10,7 +10,6 @@ gem 'pg'
 gem 'newrelic_rpm' # application metrics
 gem 'staccato-rack' # google analytic tracking
 gem 'rollbar' # error tracking
-gem 'activesupport'
 
 group :production do
   gem 'puma'
@@ -31,4 +30,5 @@ group :test do
   gem 'mutant-rspec'
   gem 'rack-test'
   gem 'simplecov'
+  gem 'activesupport'
 end

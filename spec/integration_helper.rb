@@ -2,8 +2,8 @@ require 'unit_helper'
 require 'rack/test'
 
 require './config/enviroment'
-require './app/commands/price_entry'
-require './app/commands/user'
+require './app/commands/price_entries'
+require './app/commands/users'
 
 def app
   @app ||= Rack::Builder.parse_file('./config.ru').first
@@ -14,6 +14,7 @@ def price_params(override_params = {})
     store: 'Pick n Pay',
     location: 'Canal Walk',
     product_brand_name: 'Coke',
+    generic_name: 'Soda',
     category: 'Drinks',
     package_size: '340',
     date_on: Date.today.to_s,
