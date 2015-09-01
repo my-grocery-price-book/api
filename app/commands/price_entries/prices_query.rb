@@ -14,9 +14,9 @@ module PriceEntries
 
     def execute
       filtered_prices = DB[:price_entries]
-                          .limit(@limit)
-                          .filter(region: @region)
-                          .filter(Sequel.like(:product_brand_name, "%#{@search_string}%"))
+                        .limit(@limit)
+                        .filter(region: @region)
+                        .filter(Sequel.like(:product_brand_name, "%#{@search_string}%"))
       if @product_brand_names
         filtered_prices = filtered_prices.filter(product_brand_name: @product_brand_names)
       end
