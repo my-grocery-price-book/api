@@ -1,11 +1,9 @@
 Sequel.migration do
   up do
-    drop_column :price_entries, :quantity
-    add_column :price_entries, :quantity, Integer
+    set_column_type :price_entries, :quantity, Integer
   end
 
   down do
-    drop_column :price_entries, :quantity
-    add_column :price_entries, :quantity, Float
+    set_column_type :price_entries, :quantity, Float
   end
 end
