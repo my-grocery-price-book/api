@@ -31,7 +31,7 @@ class PriceBookApi < Roda
     end
 
     request.get 'ping' do
-      { pong: DB.get { version {} }.present? }
+      { pong: !DB.get { version {} }.nil? }
     end
 
     request.post 'users' do

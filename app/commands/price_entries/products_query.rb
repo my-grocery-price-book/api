@@ -1,5 +1,3 @@
-require 'active_support/core_ext/hash/except'
-require 'active_support/core_ext/date/calculations'
 require './config/enviroment'
 require_relative 'products_query/product_page'
 
