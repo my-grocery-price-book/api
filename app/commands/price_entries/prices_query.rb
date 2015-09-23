@@ -6,7 +6,7 @@ module PriceEntries
   class PricesQuery
     def initialize(region:, limit:, search_string:, product_brand_names:, package_unit:)
       @region = region
-      @limit = [limit.to_i,100].min
+      @limit = [limit.to_i, 100].min
       @limit = 10 if @limit.equal?(0)
       @search_string = search_string
       @product_brand_names = product_brand_names
