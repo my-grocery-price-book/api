@@ -8,6 +8,7 @@ module PriceEntries
       @region = region
       @limit = limit.to_i
       @limit = 10 if @limit.equal?(0)
+      @limit = 100 if @limit > 100
       @search_string = search_string
       @product_brand_names = product_brand_names
     end

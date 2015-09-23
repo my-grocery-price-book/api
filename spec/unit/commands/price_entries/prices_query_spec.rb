@@ -80,6 +80,14 @@ describe PriceEntries::PricesQuery do
       expect(size).to eql(10)
     end
 
+    it '100 max limit' do
+      110.times.each do |i|
+        create_price_entry(product_brand_name: "Hello #{i}")
+      end
+      size = execute(limit: 110).size
+      expect(size).to eql(100)
+    end
+
     it 'returns on product_brand_names that match' do
       create_price_entry(product_brand_name: 'p1', region: 'za-wc')
       create_price_entry(product_brand_name: 'p2', region: 'za-wc')
