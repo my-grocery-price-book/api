@@ -11,6 +11,7 @@
 - name: bundle install
   command:  bundle install --jobs 4 --retry 2 --path vendor/bundle
   sudo: no
+  notify: create test database
   args:
     chdir: ~/project
     creates: ~/project/vendor/bundle

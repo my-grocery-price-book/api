@@ -1,0 +1,6 @@
+---
+- name: create test database
+  command: RACK_ENV=test bundle exec rake db:create
+  sudo: no
+  args:
+    chdir: ~/project
