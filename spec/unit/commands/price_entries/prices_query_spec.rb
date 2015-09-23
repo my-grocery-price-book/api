@@ -12,10 +12,11 @@ describe PriceEntries::PricesQuery do
       truncate_price_entries
     end
 
-    def execute(region: 'za-wc', limit: nil, search_string: nil, product_brand_names: nil)
+    def execute(region: 'za-wc', limit: nil, search_string: nil, product_brand_names: nil, package_unit: nil)
       subject.new(region: region, limit: limit,
                   search_string: search_string,
-                  product_brand_names: product_brand_names).execute
+                  product_brand_names: product_brand_names,
+                  package_unit: package_unit).execute
     end
 
     it 'empty array by default' do
@@ -80,6 +81,22 @@ describe PriceEntries::PricesQuery do
       expect(size).to eql(10)
     end
 
+    it 'returns 99' do
+      110.times.each do |i|
+        create_price_entry(product_brand_name: "Hello #{i}")
+      end
+      size = execute(limit: 99).size
+      expect(size).to eql(99)
+    end
+
+    it 'returns max of 100' do
+      110.times.each do |i|
+        create_price_entry(product_brand_name: "Hello #{i}")
+      end
+      size = execute(limit: 101).size
+      expect(size).to eql(100)
+    end
+
     it 'returns on product_brand_names that match' do
       create_price_entry(product_brand_name: 'p1', region: 'za-wc')
       create_price_entry(product_brand_name: 'p2', region: 'za-wc')
@@ -88,6 +105,16 @@ describe PriceEntries::PricesQuery do
       product_brand_names = execute(product_brand_names: %w(p2 p3)).map { |p| p[:product_brand_name] }.sort
 
       expect(product_brand_names).to eql(%w(p2 p3))
+    end
+
+    it 'returns on package_unit that match' do
+      create_price_entry(package_unit: 'u1', region: 'za-wc')
+      create_price_entry(package_unit: 'u2', region: 'za-wc')
+      create_price_entry(package_unit: 'u3', region: 'za-wc')
+
+      package_units = execute(package_unit: 'u3').map { |p| p[:package_unit] }.sort
+
+      expect(package_units).to eql(%w(u3))
     end
   end
 end

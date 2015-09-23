@@ -81,7 +81,8 @@ class PriceBookApi < Roda
           PriceEntries::PricesQuery.new(region: region,
                                         limit: request.params['limit'],
                                         search_string: request.params['search'],
-                                        product_brand_names: request.params['product_brand_names']).execute
+                                        product_brand_names: request.params['product_brand_names'],
+                                        package_unit: request.params['package_unit']).execute
         end
       end
     end
