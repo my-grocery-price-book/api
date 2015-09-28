@@ -13,11 +13,11 @@
 
 # Running Tests
 
-[![wercker status](https://app.wercker.com/status/1d3464fefb6fd3a9bf559e302e47ed14/m "wercker status")](https://app.wercker.com/project/bykey/1d3464fefb6fd3a9bf559e302e47ed14)
+[![Build Status](https://semaphoreci.com/api/v1/projects/8d7a296a-6d4c-4c09-8d7a-07a4ad73b14a/548903/badge.svg)](https://semaphoreci.com/my-grocery-price-book/api-my-grocery-price-book-co-za)
 
 ```
   RACK_ENV=test bundle exec rake db:create
-  bundle exec rake spec
+  bundle exec rake # runs specs and mutant specs
 ```
 
 # Deployment
